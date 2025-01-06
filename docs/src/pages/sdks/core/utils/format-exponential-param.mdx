@@ -1,0 +1,36 @@
+
+
+<a id="formatExponentialParam"></a>
+
+## formatExponentialParam()
+
+```ts copy
+function formatExponentialParam(param): ParseExponentialParam
+```
+
+Format FormatExponentialParam into ParseExponentialParam.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `param` | [`FormatExponentialParam`](../types.mdx#FormatExponentialParam) | [FormatExponentialParam](../types.mdx#FormatExponentialParam) Object containing `a` and `b` as `BigNumber` numbers. |
+
+#### Returns
+
+[`ParseExponentialParam`](../types.mdx#ParseExponentialParam)
+
+- [ParseExponentialParam](../types.mdx#ParseExponentialParam) Object containing `initPrice` and `aValue` as numbers.
+
+### Example
+
+```ts copy
+import { parseEther } from 'viem';
+import { formatExponentialParam } from @solio/core;
+const params = {
+  a: parseEther('1'),
+  b: parseEther('1'),
+}
+const res = formatExponentialParam(params)
+console.log(res)
+```

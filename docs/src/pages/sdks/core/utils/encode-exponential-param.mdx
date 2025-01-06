@@ -1,0 +1,34 @@
+
+
+<a id="encodeExponentialParam"></a>
+
+## encodeExponentialParam()
+
+```ts copy
+function encodeExponentialParam(param): `0x${string}`
+```
+
+Encodes the parameters for an exponential bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `param` | [`EncodeExponentialParam`](../types.mdx#EncodeExponentialParam) | [EncodeExponentialParam](../types.mdx#EncodeExponentialParam) An object containing the parameters `a` and `b` for the exponential bonding curve. |
+
+#### Returns
+
+\`0x$\{string\}\`
+
+A hash representing the encoded ABI parameters.
+
+### Example
+
+```ts copy
+const params = {
+  a: 0.1,
+  b: 10,
+}
+const res = encodeExponentialParam(params)
+console.log(res)
+```

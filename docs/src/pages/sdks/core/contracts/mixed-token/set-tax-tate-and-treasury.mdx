@@ -1,0 +1,52 @@
+<a id="setTaxRateAndTreasury"></a>
+
+## setTaxRateAndTreasury()
+
+```ts copy
+function setTaxRateAndTreasury(client, props): Promise<`0x${string}`>
+```
+
+Sets the mint and burn tax rates and treasury address of a mixed token contract.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenSetTaxRateAndTreasuryProps`](set-tax-tate-and-treasury.mdx#MixedTokenSetTaxRateAndTreasuryProps) | [MixedTokenSetTaxRateAndTreasuryProps](set-tax-tate-and-treasury.mdx#MixedTokenSetTaxRateAndTreasuryProps) The properties to use for setting the tax rates and treasury address. |
+
+<a id="MixedTokenSetTaxRateAndTreasuryProps"></a>
+
+```ts copy
+type MixedTokenSetTaxRateAndTreasuryProps: WriteContractBaseProps & {
+  address: Address;
+  treasuryAddress: Address;
+  mintTax: number;
+  burnTax: number;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mixedToken.write.setTaxRateAndTreasury(writeClient, {
+ address: '0x...', // mixed token contract address
+ treasuryAddress: '0x...',
+ mintTax: 0.05,
+ burnTax: 0.05
+});
+console.log(hash);
+```

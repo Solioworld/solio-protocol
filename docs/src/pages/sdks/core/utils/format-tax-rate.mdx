@@ -1,0 +1,30 @@
+
+
+<a id="formatTaxRate"></a>
+
+## formatTaxRate()
+
+```ts copy
+function formatTaxRate(taxRate): number
+```
+
+Format a tax rate from a `bigint` to a decimal number.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `taxRate` | `bigint` | The tax rate to format. |
+
+#### Returns
+
+`number`
+
+- The formatted tax rate.
+
+### Example
+
+```ts copy
+const formatted = formatTaxRate(10000000000000000n);
+console.log(formatted);
+```

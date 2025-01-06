@@ -1,0 +1,71 @@
+<a id="approve"></a>
+
+## approve()
+
+```ts copy
+function approve(client, props): Promise<undefined | `0x${string}`>
+```
+
+Approve the given spender to transfer the given amount of tokens from the given account.
+
+If the address is not the zero address, it calls the `approve` function
+of the specified ERC20 contract to approve the given amount.
+If the address is the zero address, it does nothing and returns undefined.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`ERC20ApproveProps`](approve.mdx#ERC20ApproveProps) | [ERC20ApproveProps](approve.mdx#ERC20ApproveProps) The properties containing the address, spender, amount, and account. |
+
+<a id="ERC20ApproveProps"></a>
+
+```ts copy
+type ERC20ApproveProps: WriteContractBaseProps & {
+  address: Address;
+  spender: Address;
+  amount: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;`undefined` \| \`0x$\{string\}\`&gt;
+
+The result of the approve call if the address is valid, otherwise undefined.
+
+### Examples
+
+```ts copy filename="erc20.ts"
+// for default amount
+import { erc20 } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await erc20.write.approve(writeClient, {
+  address: '0x...', // ERC20 contract address
+  spender: '0x...'
+});
+console.log(hash);
+```
+
+```ts copy filename="erc20.ts"
+// for custom amount (100wei)
+import { erc20 } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await erc20.write.approve(writeClient, {
+ address: '0x...', // ERC20 contract address
+ spender: '0x...',
+ amount: 100n // 100 wei
+});
+console.log(hash);
+```

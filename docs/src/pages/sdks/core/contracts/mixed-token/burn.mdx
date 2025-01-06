@@ -1,0 +1,51 @@
+<a id="burn"></a>
+
+## burn()
+
+```ts copy
+function burn(client, props): Promise<`0x${string}`>
+```
+
+Burns mixed tokens by returning a specified amount of native tokens.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenBurnProps`](burn.mdx#MixedTokenBurnProps) | [MixedTokenBurnProps](burn.mdx#MixedTokenBurnProps) The properties to use for burning. |
+
+
+<a id="MixedTokenBurnProps"></a>
+
+```ts copy
+type MixedTokenBurnProps: WriteContractBaseProps & {
+  address: Address;
+  raisingAmount: bigint;
+  minMixedTokenAmount: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mixedToken.write.burn(writeClient, {
+ address: '0x...', // mixed token contract address
+ raisingAmount: 1n,
+ minMixedTokenAmount: 1n
+});
+console.log(hash);
+```

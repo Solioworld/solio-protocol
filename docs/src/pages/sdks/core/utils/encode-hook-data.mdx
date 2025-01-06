@@ -1,0 +1,35 @@
+
+
+<a id="encodeHookData"></a>
+
+## encodeHookData()
+
+```ts copy
+function encodeHookData(type, conf): `0x${string}`
+```
+
+Encodes the parameters for a given hook type.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `type` | [`HookType`](../types.mdx#HookType) | [HookType](../types.mdx#HookType) The type of the hook. |
+| `conf` | [`HookConf`](../types.mdx#HookConfT)&lt;[`HookParam`](../types.mdx#HookParam)&gt; | [\\< HookParam\\>](../types.mdx#HookConfT) An object containing the hook address and its parameters. |
+
+#### Returns
+
+\`0x$\{string\}\`
+
+A hash representing the encoded ABI parameters.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'launchTime',
+  param: 10,
+}
+const res = encodeHookData(params)
+console.log(res)
+```

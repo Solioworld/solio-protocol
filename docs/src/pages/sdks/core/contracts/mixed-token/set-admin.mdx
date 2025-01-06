@@ -1,0 +1,48 @@
+<a id="setAdmin"></a>
+
+## setAdmin()
+
+```ts copy
+function setAdmin(client, props): Promise<`0x${string}`>
+```
+
+Sets the project admin of a mixed token contract.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenSetAdminProps`](set-admin.mdx#MixedTokenSetAdminProps) | [MixedTokenSetAdminProps](set-admin.mdx#MixedTokenSetAdminProps) The properties to use for setting the admin. |
+
+<a id="MixedTokenSetAdminProps"></a>
+
+```ts copy
+type MixedTokenSetAdminProps: WriteContractBaseProps & {
+  address: Address;
+  adminAddress: Address;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mixedToken.write.setAdmin(writeClient, {
+ address: '0x...', // mixed token contract address
+ adminAddress: '0x...'
+});
+console.log(hash);
+```

@@ -1,0 +1,38 @@
+# LaunchTime
+
+### Function:
+
+- Many projects will specify a launch time, the launch time hook enables the user to specify a specific launch time after which the tokens will be open for minting. Deployment: You need to pass in the launch timestamp when registerHook, as shown below, call deployTokenWithHooks and pass in the hook address and the constructed hook registration parameters to deploy tokens with launch time hooks.
+
+```solidity copy
+LaunchTimeHook hook = new LaunchTimeHook(address(factory));
+address[] memory hooks = new address[](1);
+bytes[] memory datas = new bytes[](1);
+hooks[0] = address(hook); // encode(timestamp); // encode(timestamp); // encode(timestamp).
+// encode(launch timestamp)
+datas[0] = abi.encode(uint256(block.timestamp +1 days)); // encode(launch timestamp)
+factory.deployTokenWithHooks(token, 0,hooks, datas);
+```
+
+
+### Subsequent uses:
+
+1. removeLimit function
+
+```solidity copy
+function removeLimit(address token) external;
+```
+
+#### function:
+
+- Manually remove the whitelist limiting mechanism for a specific token, needs to be initiated by the token administrator.
+
+#### Parameters:
+
+- token: the contract address of the token, used to specify which token to remove for whitelist operation. Example call.
+
+```solidity copy
+hook.removeLimit(address(token));
+```
+So there are two conditions for the launch time hook limit to fail, one is if the specified time is exceeded, and the other is if the administrator manually removes the
+

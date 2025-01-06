@@ -1,0 +1,32 @@
+# @solio/react-sdk
+
+- bonding react sdk
+
+## Installation
+
+```bash npm2yarn
+npm install @solio/react-sdk
+```
+
+## Usage
+
+- a simple example of using the `useVisible` hook
+
+```tsx
+import { useVisible } from '@solio/react-sdk';
+
+const MyComponent = () => {
+  const isVisible = useVisible();
+  return (
+    <div>
+      {isVisible ? 'Visible' : 'Not visible'}
+    </div>
+  );
+};
+```
+
+## Modules
+
+- [use-visible](react-sdk/use-visible.mdx)
+- [use-watch-block](react-sdk/use-watch-block.mdx)
+- [use-watch-now-date](react-sdk/use-watch-now-date.mdx)

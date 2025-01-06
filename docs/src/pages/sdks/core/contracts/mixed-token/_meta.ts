@@ -1,0 +1,25 @@
+export default {
+  '-- read': {
+    type: 'separator',
+    title: 'Read',
+  },
+  "get-admin": "getAdmin",
+  "get-estimate-mint": "getEstimateMint",
+  "get-estimate-burn": "getEstimateBurn",
+  "get-estimate-mint-need": "getEstimateMintNeed",
+  "get-metadata": "getMetadata",
+  "get-raising-token": "getRaisingToken",
+  "get-tax-rate": "getTaxRate",
+  "get-treasury": "getTreasury",
+  '-- write': {
+    type: 'separator',
+    title: 'Write',
+  },
+  "set-admin": "setAdmin",
+  "set-tax-rate": "setTaxRate",
+  "set-metadata": "setMetadata",
+  "set-treasury": "setTreasury",
+  "set-tax-tate-and-treasury": "setTaxRateAndTreasury",
+  "mint": "mint",
+  "burn": "burn",
+}

@@ -1,0 +1,880 @@
+# Type Aliases
+
+<a id="WriteClient"></a>
+
+## WriteClient
+
+```ts copy
+type WriteClient: Client<Transport, Chain, Account | undefined, RpcSchema, WalletActions<Chain, Account | undefined>>;
+```
+
+- Defined in [types/action.ts:3](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/action.ts#L3)
+
+***
+
+<a id="ReadClient"></a>
+
+## ReadClient
+
+```ts copy
+type ReadClient: Client<Transport, Chain>;
+```
+
+- Defined in [types/action.ts:5](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/action.ts#L5)
+
+***
+
+<a id="WriteContractBaseProps"></a>
+
+## WriteContractBaseProps
+
+```ts copy
+type WriteContractBaseProps: {
+  account: Address;
+ } & {
+  gas: bigint;
+  maxFeePerGas: bigint;
+  maxPriorityFeePerGas: bigint;
+ } | {
+  gas: bigint;
+  gasPrice: bigint;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `account`? | `Address` | [types/action.ts:8](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/action.ts#L8) |
+
+- Defined in [types/action.ts:7](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/action.ts#L7)
+
+***
+
+<a id="BondingCurveType"></a>
+
+## BondingCurveType
+
+```ts copy
+type BondingCurveType: "linear" | "exponential";
+```
+
+- Defined in [types/bonding-curve.ts:2](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L2)
+
+***
+
+<a id="ParseExponentialParam"></a>
+
+## ParseExponentialParam
+
+```ts copy
+type ParseExponentialParam: {
+  initPrice: number;
+  finalPrice: number;
+  finalSupply: number;
+  finalTVL: never;
+  aValue: never;
+ } | {
+  initPrice: number;
+  aValue: number;
+  finalPrice: never;
+  finalSupply: never;
+  finalTVL: never;
+ } | {
+  finalPrice: number;
+  finalSupply: number;
+  finalTVL: number;
+  initPrice: never;
+  aValue: never;
+};
+```
+
+- Defined in [types/bonding-curve.ts:4](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L4)
+
+***
+
+<a id="ParseLinearParam"></a>
+
+## ParseLinearParam
+
+```ts copy
+type ParseLinearParam: {
+  initPrice: number;
+  finalSupply: number;
+ } & {
+  finalPrice: number;
+  finalTVL: never;
+ } | {
+  finalPrice: never;
+  finalTVL: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `initPrice` | `number` | [types/bonding-curve.ts:28](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L28) |
+| `finalSupply` | `number` | [types/bonding-curve.ts:29](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L29) |
+
+- Defined in [types/bonding-curve.ts:27](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L27)
+
+***
+
+<a id="ParseBondingCurveParam"></a>
+
+## ParseBondingCurveParam
+
+```ts copy
+type ParseBondingCurveParam: ParseExponentialParam | ParseLinearParam;
+```
+
+- Defined in [types/bonding-curve.ts:41](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L41)
+
+***
+
+<a id="ParseBondingCurveProps"></a>
+
+## ParseBondingCurveProps
+
+```ts copy
+type ParseBondingCurveProps: {
+  type: BondingCurveType;
+  param: ParseBondingCurveParam;
+ } | {
+  type: "exponential";
+  param: ParseExponentialParam;
+ } | {
+  type: "linear";
+  param: ParseLinearParam;
+};
+```
+
+- Defined in [types/bonding-curve.ts:43](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L43)
+
+***
+
+<a id="EncodeExponentialParam"></a>
+
+## EncodeExponentialParam
+
+```ts copy
+type EncodeExponentialParam: {
+  a: number;
+  b: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="a"></a> `a` | `number` | [types/bonding-curve.ts:58](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L58) |
+| <a id="b"></a> `b` | `number` | [types/bonding-curve.ts:59](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L59) |
+
+- Defined in [types/bonding-curve.ts:57](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L57)
+
+***
+
+<a id="EncodeLinearParam"></a>
+
+## EncodeLinearParam
+
+```ts copy
+type EncodeLinearParam: {
+  k: number;
+  p: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="k"></a> `k` | `number` | [types/bonding-curve.ts:63](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L63) |
+| <a id="p"></a> `p` | `number` | [types/bonding-curve.ts:64](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L64) |
+
+- Defined in [types/bonding-curve.ts:62](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L62)
+
+***
+
+<a id="EncodeBondingCurveParam"></a>
+
+## EncodeBondingCurveParam
+
+```ts copy
+type EncodeBondingCurveParam: EncodeExponentialParam | EncodeLinearParam;
+```
+
+- Defined in [types/bonding-curve.ts:67](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L67)
+
+***
+
+<a id="EncodeBondingCurveProps"></a>
+
+## EncodeBondingCurveProps
+
+```ts copy
+type EncodeBondingCurveProps: {
+  type: BondingCurveType;
+  param: EncodeBondingCurveParam;
+ } | {
+  type: "linear";
+  param: EncodeLinearParam;
+ } | {
+  type: "exponential";
+  param: EncodeExponentialParam;
+};
+```
+
+- Defined in [types/bonding-curve.ts:69](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L69)
+
+***
+
+<a id="FormatExponentialParam"></a>
+
+## FormatExponentialParam
+
+```ts copy
+type FormatExponentialParam: EncodeExponentialParam & {
+  finalSupply: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `finalSupply`? | `number` | [types/bonding-curve.ts:83](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L83) |
+
+- Defined in [types/bonding-curve.ts:83](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L83)
+
+***
+
+<a id="FormatLinearParam"></a>
+
+## FormatLinearParam
+
+```ts copy
+type FormatLinearParam: EncodeLinearParam & {
+  finalSupply: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `finalSupply` | `number` | [types/bonding-curve.ts:84](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L84) |
+
+- Defined in [types/bonding-curve.ts:84](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L84)
+
+***
+
+<a id="FormatBondingCurveParam"></a>
+
+## FormatBondingCurveParam
+
+```ts copy
+type FormatBondingCurveParam: FormatExponentialParam | FormatLinearParam;
+```
+
+- Defined in [types/bonding-curve.ts:85](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L85)
+
+***
+
+<a id="FormatBondingCurveProps"></a>
+
+## FormatBondingCurveProps
+
+```ts copy
+type FormatBondingCurveProps: {
+  type: BondingCurveType;
+  param: FormatBondingCurveParam;
+ } | {
+  type: "exponential";
+  param: FormatExponentialParam;
+ } | {
+  type: "linear";
+  param: FormatLinearParam;
+};
+```
+
+- Defined in [types/bonding-curve.ts:87](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L87)
+
+***
+
+<a id="BondingCurveProps"></a>
+
+## BondingCurveProps
+
+```ts copy
+type BondingCurveProps: EncodeBondingCurveProps | ParseBondingCurveProps;
+```
+
+- Defined in [types/bonding-curve.ts:101](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L101)
+
+***
+
+<a id="ComputeExponentialProps"></a>
+
+## ComputeExponentialProps
+
+```ts copy
+type ComputeExponentialProps: EncodeExponentialParam & {
+  supply: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `supply` | `number` | [types/bonding-curve.ts:104](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L104) |
+
+- Defined in [types/bonding-curve.ts:103](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L103)
+
+***
+
+<a id="ComputeLinearProps"></a>
+
+## ComputeLinearProps
+
+```ts copy
+type ComputeLinearProps: EncodeLinearParam & {
+  supply: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `supply` | `number` | [types/bonding-curve.ts:108](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L108) |
+
+- Defined in [types/bonding-curve.ts:107](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L107)
+
+***
+
+<a id="ComputeBondingCurveProps"></a>
+
+## ComputeBondingCurveProps
+
+```ts copy
+type ComputeBondingCurveProps: {
+  type: BondingCurveType;
+  param: EncodeBondingCurveParam;
+  supply: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type"></a> `type` | [`BondingCurveType`](types.mdx#BondingCurveType) | [types/bonding-curve.ts:112](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L112) |
+| <a id="param"></a> `param` | [`EncodeBondingCurveParam`](types.mdx#EncodeBondingCurveParam) | [types/bonding-curve.ts:113](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L113) |
+| <a id="supply"></a> `supply` | `number` | [types/bonding-curve.ts:114](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L114) |
+
+- Defined in [types/bonding-curve.ts:111](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L111)
+
+***
+
+<a id="GenerateExponentialChartProps"></a>
+
+## GenerateExponentialChartProps
+
+```ts copy
+type GenerateExponentialChartProps: ComputeExponentialProps & {
+  start: number;
+  count: number;
+  end: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `start`? | `number` | [types/bonding-curve.ts:118](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L118) |
+| `count`? | `number` | [types/bonding-curve.ts:119](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L119) |
+| `end`? | `number` | [types/bonding-curve.ts:120](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L120) |
+
+- Defined in [types/bonding-curve.ts:117](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L117)
+
+***
+
+<a id="BondingCurveChartItem"></a>
+
+## BondingCurveChartItem
+
+```ts copy
+type BondingCurveChartItem: {
+  supply: number;
+  price: number;
+  tvl: number;
+  marketCap: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="supply-1"></a> `supply` | `number` | [types/bonding-curve.ts:123](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L123) |
+| <a id="price"></a> `price` | `number` | [types/bonding-curve.ts:123](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L123) |
+| <a id="tvl"></a> `tvl` | `number` | [types/bonding-curve.ts:123](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L123) |
+| <a id="marketCap"></a> `marketCap` | `number` | [types/bonding-curve.ts:123](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L123) |
+
+- Defined in [types/bonding-curve.ts:123](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L123)
+
+***
+
+<a id="BondingCurveChart"></a>
+
+## BondingCurveChart
+
+```ts copy
+type BondingCurveChart: BondingCurveChartItem[];
+```
+
+- Defined in [types/bonding-curve.ts:124](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L124)
+
+***
+
+<a id="GenerateLinearChartProps"></a>
+
+## GenerateLinearChartProps
+
+```ts copy
+type GenerateLinearChartProps: ComputeLinearProps & {
+  count: number;
+  start: number;
+  end: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `count`? | `number` | [types/bonding-curve.ts:127](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L127) |
+| `start`? | `number` | [types/bonding-curve.ts:128](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L128) |
+| `end`? | `number` | [types/bonding-curve.ts:129](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L129) |
+
+- Defined in [types/bonding-curve.ts:126](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L126)
+
+***
+
+<a id="GenerateBondingCurveChartProps"></a>
+
+## GenerateBondingCurveChartProps
+
+```ts copy
+type GenerateBondingCurveChartProps: {
+  type: BondingCurveType;
+  param: EncodeBondingCurveParam;
+  supply: number;
+  start: number;
+  end: number;
+  count: number;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type-1"></a> `type` | [`BondingCurveType`](types.mdx#BondingCurveType) | [types/bonding-curve.ts:133](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L133) |
+| <a id="param-1"></a> `param` | [`EncodeBondingCurveParam`](types.mdx#EncodeBondingCurveParam) | [types/bonding-curve.ts:134](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L134) |
+| <a id="supply-2"></a> `supply` | `number` | [types/bonding-curve.ts:135](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L135) |
+| <a id="start"></a> `start`? | `number` | [types/bonding-curve.ts:136](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L136) |
+| <a id="end"></a> `end`? | `number` | [types/bonding-curve.ts:137](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L137) |
+| <a id="count"></a> `count`? | `number` | [types/bonding-curve.ts:138](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L138) |
+
+- Defined in [types/bonding-curve.ts:132](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/bonding-curve.ts#L132)
+
+***
+
+<a id="HookType"></a>
+
+## HookType
+
+```ts copy
+type HookType: "launchTime" | "limit" | "launchWhitelist";
+```
+
+- Defined in [types/hook.ts:4](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L4)
+
+***
+
+<a id="HookLaunchTimeParam"></a>
+
+## HookLaunchTimeParam
+
+```ts copy
+type HookLaunchTimeParam: number;
+```
+
+- Defined in [types/hook.ts:5](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L5)
+
+***
+
+<a id="HookLimitParam"></a>
+
+## HookLimitParam
+
+```ts copy
+type HookLimitParam: bigint;
+```
+
+- Defined in [types/hook.ts:6](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L6)
+
+***
+
+<a id="HookLaunchWhitelistParam"></a>
+
+## HookLaunchWhitelistParam
+
+```ts copy
+type HookLaunchWhitelistParam: {
+  startTime: number;
+  whiteTime: number;
+  startFilters: Address[];
+  bloomFilters: Address[];
+  mintAmounts: bigint[];
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="startTime"></a> `startTime` | `number` | [types/hook.ts:8](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L8) |
+| <a id="whiteTime"></a> `whiteTime` | `number` | [types/hook.ts:9](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L9) |
+| <a id="startFilters"></a> `startFilters` | `Address`[] | [types/hook.ts:10](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L10) |
+| <a id="bloomFilters"></a> `bloomFilters` | `Address`[] | [types/hook.ts:11](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L11) |
+| <a id="mintAmounts"></a> `mintAmounts` | `bigint`[] | [types/hook.ts:12](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L12) |
+
+- Defined in [types/hook.ts:7](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L7)
+
+***
+
+<a id="HookParam"></a>
+
+## HookParam
+
+```ts copy
+type HookParam: HookLaunchTimeParam | HookLimitParam | HookLaunchWhitelistParam;
+```
+
+- Defined in [types/hook.ts:15](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L15)
+
+***
+
+<a id="HookConfT"></a>
+
+## HookConf&lt;T&gt;
+
+```ts copy
+type HookConf<T>: {
+  address: Address;
+  param: T;
+  encode: string;
+};
+```
+
+## Type Parameters
+
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`HookParam`](types.mdx#HookParam) | [`HookParam`](types.mdx#HookParam) |
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `Address` | [types/hook.ts:18](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L18) |
+| <a id="param-2"></a> `param` | `T` | [types/hook.ts:19](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L19) |
+| <a id="encode"></a> `encode`? | `string` | [types/hook.ts:20](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L20) |
+
+- Defined in [types/hook.ts:17](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/hook.ts#L17)
+
+***
+
+<a id="ERC721_Metadata"></a>
+
+## ERC721\_Metadata
+
+```ts copy
+type ERC721_Metadata: {
+  name: string;
+  image: string;
+  description: string;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="name"></a> `name` | `string` | [types/metadata.ts:3](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L3) |
+| <a id="image"></a> `image` | `string` | [types/metadata.ts:4](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L4) |
+| <a id="description"></a> `description` | `string` | [types/metadata.ts:5](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L5) |
+
+- Defined in [types/metadata.ts:2](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L2)
+
+***
+
+<a id="ERC115_Metadata"></a>
+
+## ERC115\_Metadata
+
+```ts copy
+type ERC115_Metadata: ERC721_Metadata & {
+  decimals: number;
+  properties: object;
+  localization: object & {
+     uri: string;
+     default: string;
+     locales: string;
+    };
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `decimals`? | `number` | [types/metadata.ts:10](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L10) |
+| `properties`? | `object` | [types/metadata.ts:11](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L11) |
+| `localization`? | `object` & \{ `uri`: `string`; `default`: `string`; `locales`: `string`; \} | [types/metadata.ts:12](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L12) |
+
+- Defined in [types/metadata.ts:9](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L9)
+
+***
+
+<a id="OpenSea_Attributes"></a>
+
+## OpenSea\_Attributes
+
+```ts copy
+type OpenSea_Attributes: {
+  display_type: "boost_number" | "boost_percentage" | "number" | "date";
+  trait_type: string;
+  value: number | string;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="display_type"></a> `display_type`? | `"boost_number"` \| `"boost_percentage"` \| `"number"` \| `"date"` | [types/metadata.ts:17](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L17) |
+| <a id="trait_type"></a> `trait_type`? | `string` | [types/metadata.ts:18](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L18) |
+| <a id="value"></a> `value` | `number` \| `string` | [types/metadata.ts:19](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L19) |
+
+- Defined in [types/metadata.ts:16](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L16)
+
+***
+
+<a id="OpenSea_Metadata"></a>
+
+## OpenSea\_Metadata
+
+```ts copy
+type OpenSea_Metadata: ERC721_Metadata & {
+  external_url: string;
+  image_data: string;
+  background_color: string;
+  animation_url: string;
+  youtube_url: string;
+  attributes: OpenSea_Attributes[];
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `external_url`? | `string` | [types/metadata.ts:24](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L24) |
+| `image_data`? | `string` | [types/metadata.ts:25](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L25) |
+| `background_color`? | `string` | [types/metadata.ts:26](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L26) |
+| `animation_url`? | `string` | [types/metadata.ts:27](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L27) |
+| `youtube_url`? | `string` | [types/metadata.ts:28](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L28) |
+| `attributes`? | [`OpenSea_Attributes`](types.mdx#OpenSea_Attributes)[] | [types/metadata.ts:29](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L29) |
+
+- Defined in [types/metadata.ts:23](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L23)
+
+***
+
+<a id="Curve_Metadata"></a>
+
+## Curve\_Metadata
+
+```ts copy
+type Curve_Metadata: OpenSea_Metadata & {
+  website_url: string;
+  twitter_url: string;
+  discord_url: string;
+  telegram_url: string;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `website_url`? | `string` | [types/metadata.ts:33](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L33) |
+| `twitter_url`? | `string` | [types/metadata.ts:34](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L34) |
+| `discord_url`? | `string` | [types/metadata.ts:35](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L35) |
+| `telegram_url`? | `string` | [types/metadata.ts:36](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L36) |
+
+- Defined in [types/metadata.ts:32](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/metadata.ts#L32)
+
+***
+
+<a id="MixedTokenType"></a>
+
+## MixedTokenType
+
+```ts copy
+type MixedTokenType: "LOL" | "ERC20" | "ERC20WithSupply";
+```
+
+- Defined in [types/mixed-token.ts:5](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L5)
+
+***
+
+<a id="EncodeMixedTokenType"></a>
+
+## EncodeMixedTokenType
+
+```ts copy
+type EncodeMixedTokenType: "HODL" | "LOL";
+```
+
+- Defined in [types/mixed-token.ts:6](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L6)
+
+***
+
+<a id="MetadataUrl"></a>
+
+## MetadataUrl
+
+```ts copy
+type MetadataUrl: "ipfs://" | string;
+```
+
+- Defined in [types/mixed-token.ts:7](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L7)
+
+***
+
+<a id="MixedTokenBaseParam"></a>
+
+## MixedTokenBaseParam
+
+```ts copy
+type MixedTokenBaseParam: {
+  type: EncodeMixedTokenType;
+  name: string;
+  symbol: string;
+  metadataUrl: MetadataUrl;
+  raisingAddress: Address;
+  adminAddress: Address;
+  treasuryAddress: Address;
+  hook: {
+     launchTime: HookConf<HookLaunchTimeParam>;
+     limit: HookConf<HookLimitParam>;
+     launchWhitelist: HookConf<HookLaunchWhitelistParam>;
+    };
+  fastMintAmount: bigint;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type-2"></a> `type` | [`EncodeMixedTokenType`](types.mdx#EncodeMixedTokenType) | [types/mixed-token.ts:9](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L9) |
+| <a id="name-1"></a> `name` | `string` | [types/mixed-token.ts:10](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L10) |
+| <a id="symbol"></a> `symbol` | `string` | [types/mixed-token.ts:11](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L11) |
+| <a id="metadataUrl"></a> `metadataUrl` | [`MetadataUrl`](types.mdx#MetadataUrl) | [types/mixed-token.ts:12](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L12) |
+| <a id="raisingAddress"></a> `raisingAddress` | `Address` | [types/mixed-token.ts:13](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L13) |
+| <a id="adminAddress"></a> `adminAddress`? | `Address` | [types/mixed-token.ts:14](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L14) |
+| <a id="treasuryAddress"></a> `treasuryAddress`? | `Address` | [types/mixed-token.ts:15](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L15) |
+| <a id="hook"></a> `hook`? | \{ `launchTime`: [`HookConf`](types.mdx#HookConfT)&lt;[`HookLaunchTimeParam`](types.mdx#HookLaunchTimeParam)&gt;; `limit`: [`HookConf`](types.mdx#HookConfT)&lt;[`HookLimitParam`](types.mdx#HookLimitParam)&gt;; `launchWhitelist`: [`HookConf`](types.mdx#HookConfT)&lt;[`HookLaunchWhitelistParam`](types.mdx#HookLaunchWhitelistParam)&gt;; \} | [types/mixed-token.ts:16](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L16) |
+| <a id="launchTime"></a> `hook.launchTime`? | [`HookConf`](types.mdx#HookConfT)&lt;[`HookLaunchTimeParam`](types.mdx#HookLaunchTimeParam)&gt; | [types/mixed-token.ts:17](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L17) |
+| <a id="limit"></a> `hook.limit`? | [`HookConf`](types.mdx#HookConfT)&lt;[`HookLimitParam`](types.mdx#HookLimitParam)&gt; | [types/mixed-token.ts:18](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L18) |
+| <a id="launchWhitelist"></a> `hook.launchWhitelist`? | [`HookConf`](types.mdx#HookConfT)&lt;[`HookLaunchWhitelistParam`](types.mdx#HookLaunchWhitelistParam)&gt; | [types/mixed-token.ts:19](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L19) |
+| <a id="fastMintAmount"></a> `fastMintAmount`? | `bigint` | [types/mixed-token.ts:21](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L21) |
+
+- Defined in [types/mixed-token.ts:8](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L8)
+
+***
+
+<a id="MixedTokenHODLParam"></a>
+
+## MixedTokenHODLParam
+
+```ts copy
+type MixedTokenHODLParam: MixedTokenBaseParam & {
+  type: "HODL";
+  bondingCurve: BondingCurveProps;
+  mintTaxRate: number;
+  burnTaxRate: number;
+  maxSupply: bigint;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `type` | `"HODL"` | [types/mixed-token.ts:24](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L24) |
+| `bondingCurve` | [`BondingCurveProps`](types.mdx#BondingCurveProps) | [types/mixed-token.ts:25](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L25) |
+| `mintTaxRate` | `number` | [types/mixed-token.ts:26](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L26) |
+| `burnTaxRate` | `number` | [types/mixed-token.ts:27](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L27) |
+| `maxSupply`? | `bigint` | [types/mixed-token.ts:28](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L28) |
+
+- Defined in [types/mixed-token.ts:23](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L23)
+
+***
+
+<a id="MixedTokenLOLParam"></a>
+
+## MixedTokenLOLParam
+
+```ts copy
+type MixedTokenLOLParam: MixedTokenBaseParam & {
+  type: "LOL";
+  bondingCurve: BondingCurveProps;
+  mintTaxRate: number;
+  burnTaxRate: number;
+  maxSupply: bigint;
+};
+```
+
+### Type declaration
+
+| Name | Type | Defined in |
+| ------ | ------ | ------ |
+| `type` | `"LOL"` | [types/mixed-token.ts:31](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L31) |
+| `bondingCurve`? | [`BondingCurveProps`](types.mdx#BondingCurveProps) | [types/mixed-token.ts:32](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L32) |
+| `mintTaxRate`? | `number` | [types/mixed-token.ts:33](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L33) |
+| `burnTaxRate`? | `number` | [types/mixed-token.ts:34](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L34) |
+| `maxSupply`? | `bigint` | [types/mixed-token.ts:35](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L35) |
+
+- Defined in [types/mixed-token.ts:30](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L30)
+
+***
+
+<a id="MixedTokenParam"></a>
+
+## MixedTokenParam
+
+```ts copy
+type MixedTokenParam: MixedTokenHODLParam | MixedTokenLOLParam;
+```
+
+- Defined in [types/mixed-token.ts:37](https://github.com/Solioworld/solio-protocol/blob/main/packages/core/src/types/mixed-token.ts#L37)

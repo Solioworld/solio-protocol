@@ -1,0 +1,30 @@
+{
+  "name": "solio-protocol-docs",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "next build",
+    "clean": "rimraf .next .turbo",
+    "dev": "next",
+    "start": "next start",
+    "pages:build": "pnpm dlx @cloudflare/next-on-pages",
+    "preview": "pnpm run pages:build && wrangler pages dev",
+    "deploy": "pnpm run pages:build && wrangler pages deploy"
+  },
+  "dependencies": {
+    "next": "^14.2.20",
+    "nextra": "^3.2.4",
+    "nextra-theme-docs": "^3.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.5",
+    "@types/node": "22.10.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.6.3",
+    "wrangler": "^3.90.0",
+    "vercel": "^39.1.1"
+  }
+}

@@ -1,0 +1,85 @@
+# Deploy Token
+
+Deploying tokens on solio is licence free and allows for trading and automatic market making with the bonding curve. This guide will walk you through creating solio tokens using solio contracts.
+
+BondingToken is a function that binds tokens for market capitalisation management. The exchange price between the issued tokens and the bonded tokens is a specified function, which can be classified as exponential or linear based on the type of function between the price of the issued tokens and the amount of the issued tokens.
+
+1. Exponential function type, the horizontal axis is the supply of tokens, the vertical axis is the price of tokens, the price of tokens and the supply of tokens show an exponential relationship.
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXc61FN1mno7hydoQYUbUfG987VlqZRPDT5P2a1T2iF2O2sWXfUPI_IJh-1QMvptw47zn0KTC4-4hsicvFdyF3U5Kpx9P0nU8JOJ7yU_DBoQuqWmsjRIbn0mmvArVpJl6DTYGH5xqw?key=pgnKATlwWc8TPGbsVJk82GgR)
+
+2. Linear function type, the horizontal axis is the token supply, the vertical axis is the token price, the token price and the token supply present a linear relationship.
+
+[](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfJCMGJUsgH5cecSg6OjLNE5gRvBoQfr_ehJEdbOCPVk6a1OuOst26xbzenis-fzddGVyNjs3qf9f6F1EbGo5Juoj49uKzCwJpbjzsXIeQ5-oGvpY0q5KjpZw99UkYZQ1O1Gma4EQ?key=pgnKATlwWc8TPGbsVJk82GgR)
+
+Tokens need to be launched using the factory. The interface for launching tokens is shown below:
+
+```solidity copy
+interface IBondingFactory {
+    function deployToken(TokenInfo calldata token, uint256 mintfirstAmount) external payable returns (address);
+}
+```
+
+Deploy tokens using the deployToken method. mintFirstAmount indicates the number of pre-minted tokens. tokenInfo is the base token information, which has the following data structure:
+
+```solidity copy
+  struct TokenInfo {
+      string tokenType;
+      string bondingCurveType;
+      string name;
+      string symbol;
+      string metadata;
+      address projectAdmin;
+      address projectTreasury;
+      uint256 projectMintTax;
+      uint256 projectBurnTax;
+      address raisingTokenAddr;
+      bytes data;
+  }
+```
+
+
+>TokenInfo, which is used to describe the various information associated with a particular token. Each field in the structure has its own specific type and purpose, which are listed below:
+
+1. string tokenType* Purpose: Used to store the type of the token. It needs to be the type of tokens that have been registered by the factory, there are the following types.
+
+* ERC20, ordinary ERC20 type, ordinary ERC20 has no upper limit of minting, theoretically can be unlimited minting, and the value obtained by totalSupply is equal to the current circulation, for mint or burn is to interact with 0 address for transfer.
+
+* ERC20WithSupply, with maximum supply of ERC20, it will first mint the maximum supply of tokens into the token contract, and then mint or burn transfers will directly interact with the token contract, the value of totalSupply is equal to the maximum supply, and there is also a circulatingSupply method to There is also a circulatingSupply method.
+
+2. string bondingCurveType* Purpose: Used to store the type of curve associated with token issuance or pricing (usually used in liquidity pools or market models). Indicates the way the issue price of tokens varies with quantity.
+
+* exponential, exponential type
+
+* linear, linear type
+
+3. string name* Purpose: The name of the token. For example, ‘MyToken’ or ‘CoolNFT’. 4. string symbol* Purpose: Token's symbol. For example, ‘ETH’, ‘USDT’ or ‘ABC’. 5. string metadata* Purpose: Stores additional metadata related to the token. This field can store, for example, a description of the token, a link to the documentation, a link to IPFS, etc. 6. address projectAdmin* Purpose: Stores the address of the administrator of the token project. The administrator usually has the authority to manage some key operations of the token treasury, tax rates. 7. address projectTreasury* Purpose: Stores the address of the project treasury, which is used to store the funds or proceeds of the project, and each time a transaction is made, the token will be charged a proportional amount of fees, which will be transferred to the treasury address. 8. uint256 projectMintTax* Purpose: Stores the value of the project mint tax rate. It may represent the proportion of fees to be paid each time the tokens are minted (base is 10000, 100% for 100, maximum is 50%). uint256 projectBurnTax* Purpose: Stores the value of the project destruction tax rate. It may represent the fee to be paid each time a token is destroyed, the value is the same as projectMintTax. 10. address raisingTokenAddr* Purpose: Stores the address of the token used to raise or raise funds. Identifies the tokens associated with this project that are used for binding. 11. bytes data* Purpose: Stores bytes of data used to store key information about function parameters, which vary by type of function.
+
+* In the exponential function, the price and token supply can be expressed by the formula p=a \* esupply/b, the actual meaning of a is the initial price of tokens, and the actual meaning of b is the expansion rate of token supply, i.e., for every increase of b in the token supply, the price will be doubled by e (2.718) times. data is the encoding of ab,b, and you can use the following calculator to calculate the value of data. [calculator](https://docs.google.com/spreadsheets/d/1udJRq_hYRimZQMnlozeLybaRYZEznZ7aSmB4i1Dxrtk/edit?usp=sharing)* The linear function of price and token supply can be calculated using the formula p=k \* supply + p0, where the practical meaning of p0 is the initial price of tokens, and the practical meaning of k is the rate of expansion of the price, i.e., for every increase of 1 in the supply of tokens, the price will increase by k. You can calculate the value of data using the following calculator. [Calculator](https://docs.google.com/spreadsheets/d/1udJRq_hYRimZQMnlozeLybaRYZEznZ7aSmB4i1Dxrtk/edit?usp=sharing)
+
+
+```solidity copy
+  TokenInfo memory token;
+  token.tokenType = "ERC20WithSupply";
+  token.name = "My Token";
+  token.symbol = "MYTOKEN";
+  token.bondingCurveType = "exponential";
+  token.projectMintTax = 30;
+  token.projectBurnTax = 30;
+  token.data = abi.encode(uint256(1e9 ether),abi.encode(uint256(1e9),uint256(1e7 ether)));
+  token.projectAdmin = 0xAddr;
+  token.projectTreasury = 0xAddr;
+  token.raisingTokenAddr = address(weth);
+  address tokenAddr = factory.deployToken(token, 1 ether);
+```
+
+
+The bonding token contract provides basic coin management functionality, however, there are a variety of requirements that require the contract to be scalable. In bonding token contracts, this can be achieved through hook functions. Before and after a token is transferred, minted, or destroyed, it will check if there is a corresponding hook function and execute the logic in the function, which enables the token contract to implement extended functions such as whitelisting, hardtopping, and timed opening. Hooks need to be registered at the beginning of the token launch, and it is not possible to add more hooks after the launch of tokens. The deployment method for tokens with hooks is as follows:
+
+```solidity copy
+interface IBondingFactory {
+    function deployTokenWithHooks(TokenInfo calldata token, uint256 mintfirstAmount, address[] calldata hooks, bytes[] calldata datas) external payable returns (address);
+}
+```
+
+Compared with the deployToken function, two parameters, hooks and datas, have been added to represent the addresses of the hooks that need to be registered, and the data that needs to be attached to the registration. The specific use of hooks and registration methods will be described in detail in the Hooks chapter.

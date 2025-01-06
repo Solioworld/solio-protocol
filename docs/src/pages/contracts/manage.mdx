@@ -1,0 +1,56 @@
+# Management
+
+solio tokens provide some basic management functions. To invoke the management functions, you need to have token administrator privileges, which are usually set when the token is deployed. If admin rights are discarded, the token will not be able to be modified. With these functions, you can update the metadata, adjust the transaction tax, update the treasury address and the administrator address. Below is a brief explanation of each function:
+
+### **1.** ``setMetadata``
+
+```solidity copy
+    function setMetadata(string memory url) external;
+```
+
+* **What it does**: updates the project's metadata URL.
+
+* **Parameters**: `url` is a string representing the new metadata URL, which can be an http link or an ipfs link.
+
+* **Function**: allows dynamic updating of external links or other relevant descriptive information about the project.
+
+### **2.** `setProjectTaxRate`
+
+```solidity copy
+    function setProjectTaxRate(uint256 projectMintTax, uint256 projectBurnTax) external;
+```
+
+* **What it does**: sets the project mint tax rate and destruction tax rate.
+
+* ** Parameters**:
+
+  - `projectMintTax`: set the tax rate for minting tokens (base 10000, 1% for 100, max 50%).
+
+  - `projectBurnTax`: sets the tax rate for token destruction (same as above).
+
+* **Functionality**: allows the administrator to adjust the tax associated with token minting and destruction, affecting the economic model of the project.
+
+### **3.** ``setProjectAdmin``
+
+```solidity copy
+    function setProjectAdmin(address newProjectAdmin) external;
+```
+
+* **What it does**: Changes the address of the project's administrator.
+
+* **Parameters**: `newProjectAdmin` is the new admin address.
+
+* **Function**: Enables the project's administrator to be changed if necessary so that a new administrator can take over the project's administrative functions.
+
+### **4.** `setProjectTreasury`
+
+```solidity copy
+function setProjectTreasury(address newProjectTreasury) external;
+```
+
+* **What it does**: changes the address of the project treasury.
+
+* **Parameters**: `newProjectTreasury` is the new treasury address.
+
+* **Function**: adjusts the address where the project's funds are stored, usually the address created to manage the project's funds, earnings, and expenses. The functions give the contract's administrator the flexibility to update key settings of the token project, such as metadata links, tax rates, administrative privileges and treasury addresses, typically used to maintain and adjust the project's operating parameters.
+

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "./src/constants/*",
+    "./src/utils/*",
+    "./src/contracts/*/*",
+    "./src/types/index.ts"
+  ],
+  "exclude": [
+    "./src/contracts/*/abi.ts",
+    "./src/contracts/*/index.ts"
+  ],
+  "disableSources": true,
+  "entryFileName": "index"
+}

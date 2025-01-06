@@ -1,0 +1,46 @@
+<a id="getAdmin"></a>
+
+## getAdmin()
+
+```ts copy
+function getAdmin(client, props): Promise<`0x${string}`>
+```
+
+Reads the project admin address of a mixed token.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`ReadClient`](../../types.mdx#ReadClient) | [ReadClient](../../types.mdx#ReadClient) The read client to use. |
+| `props` | [`MixedTokenGetAdminProps`](get-admin.mdx#MixedTokenGetAdminProps) | [MixedTokenGetAdminProps](get-admin.mdx#MixedTokenGetAdminProps) The properties to use. |
+
+<a id="MixedTokenGetAdminProps"></a>
+
+```ts copy
+type MixedTokenGetAdminProps: {
+  address: Address;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+The project admin address.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const adminAddress = await mixedToken.read.getAdmin(readClient, {
+ address: '0x...' // mixed token address
+});
+console.log(adminAddress);
+```

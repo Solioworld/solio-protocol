@@ -1,0 +1,38 @@
+
+
+<a id="parseBondingCurveParam"></a>
+
+## parseBondingCurveParam()
+
+```ts copy
+function parseBondingCurveParam(props): EncodeBondingCurveParam
+```
+
+Parse bonding curve parameters.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`ParseBondingCurveProps`](../types.mdx#ParseBondingCurveProps) | [ParseBondingCurveProps](../types.mdx#ParseBondingCurveProps) An object containing the bonding curve type and its parameters. |
+
+#### Returns
+
+[`EncodeBondingCurveParam`](../types.mdx#EncodeBondingCurveParam)
+
+- [EncodeBondingCurveParam](../types.mdx#EncodeBondingCurveParam) Encoded bonding curve parameters.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'linear',
+  param: {
+    initPrice: 10,
+    finalPrice: 110,
+    finalSupply: 100,
+  },
+}
+const res = parseBondingCurveParam(params)
+console.log(res)
+```

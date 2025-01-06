@@ -1,0 +1,48 @@
+<a id="setMetadata"></a>
+
+## setMetadata()
+
+```ts copy
+function setMetadata(client, props): Promise<`0x${string}`>
+```
+
+Sets the metadata URL of a mixed token contract.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenSetMetadataProps`](set-metadata.mdx#MixedTokenSetMetadataProps) | [MixedTokenSetMetadataProps](set-metadata.mdx#MixedTokenSetMetadataProps) The properties to use for setting the metadata URL. |
+
+<a id="MixedTokenSetMetadataProps"></a>
+
+```ts copy
+type MixedTokenSetMetadataProps: WriteContractBaseProps & {
+  address: Address;
+  metadataUrl: MetadataUrl;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mixedToken.write.setMetadata(writeClient, {
+ address: '0x...', // mixed token contract address
+ metadataUrl: 'ipfs://...'
+});
+console.log(hash);
+```

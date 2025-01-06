@@ -1,0 +1,60 @@
+<a id="swap"></a>
+
+## swap()
+
+```ts copy
+function swap(client, props): Promise<`0x${string}`>
+```
+
+Swaps a token for another token using the router contract.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | The write client to use for the contract call. |
+| `props` | [`RouterSwapProps`](swap.mdx#RouterSwapProps) | An object containing the properties for the function. |
+
+<a id="RouterSwapProps"></a>
+
+```ts copy
+type RouterSwapProps: WriteContractBaseProps & {
+  address: Address;
+  raisingToken: Address;
+  payAddress: Address;
+  payIndex: bigint;
+  payAmount: bigint;
+  receiveAddress: Address;
+  receiveIndex: bigint;
+  minReceiveAmount: bigint;
+  timeout: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="router.ts"
+import { router } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await  router.write.swap(writeClient, {
+ address: '0x...', // Router contract address
+ raisingToken: '0x...',
+ payAddress: '0x...',
+ payIndex: 0n,
+ payAmount: 100n,
+ receiveAddress: '0x...',
+ receiveIndex: 0n,
+ minReceiveAmount: 100n
+});
+```

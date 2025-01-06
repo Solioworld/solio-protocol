@@ -1,0 +1,38 @@
+
+
+<a id="generateBondingCurveChart"></a>
+
+## generateBondingCurveChart()
+
+```ts copy
+function generateBondingCurveChart(props): BondingCurveChart
+```
+
+Generates a chart of a given bonding curve type.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`GenerateBondingCurveChartProps`](../types.mdx#GenerateBondingCurveChartProps) | [GenerateBondingCurveChartProps](../types.mdx#GenerateBondingCurveChartProps) An object containing the parameters for the bonding curve, including the type, current supply, start and end points, and the number of points to generate. |
+
+#### Returns
+
+[`BondingCurveChart`](../types.mdx#BondingCurveChart)
+
+A chart of the bonding curve, with the supply on the x-axis, the price on the y-axis, and the total value locked and market capitalization as additional data points.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'exponential',
+  supply: 10,
+  param: {
+    a: 1,
+    b: 2,
+  },
+}
+const res = generateBondingCurveChart(params)
+console.log(res)
+```

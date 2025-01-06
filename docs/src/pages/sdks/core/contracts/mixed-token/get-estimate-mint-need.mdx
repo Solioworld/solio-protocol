@@ -1,0 +1,57 @@
+<a id="getEstimateMintNeed"></a>
+
+## getEstimateMintNeed()
+
+```ts copy
+function getEstimateMintNeed(client, props): Promise<{
+  raisingAmount: bigint;
+  platformFee: bigint;
+  projectFee: bigint;
+ }>
+```
+
+Estimates the native token amount that needs to be paid when a certain amount of mixed token is minted.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`ReadClient`](../../types.mdx#ReadClient) | [ReadClient](../../types.mdx#ReadClient) The read client to use. |
+| `props` | [`MixedTokenGetEstimateMintNeedProps`](get-estimate-mint-need.mdx#MixedTokenGetEstimateMintNeedProps) | [MixedTokenGetEstimateMintNeedProps](get-estimate-mint-need.mdx#MixedTokenGetEstimateMintNeedProps) The properties to use. |
+
+
+<a id="MixedTokenGetEstimateMintNeedProps"></a>
+
+```ts copy
+type MixedTokenGetEstimateMintNeedProps: {
+  address: Address;
+  mixedTokenAmount: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\{
+  `raisingAmount`: `bigint`;
+  `platformFee`: `bigint`;
+  `projectFee`: `bigint`;
+ \}&gt;
+
+The native token amount, platform fee, and project fee.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const { raisingAmount, platformFee, projectFee } = await mixedToken.read.getEstimateMintNeed(readClient, {
+ address: '0x...', // mixed token address
+ mixedTokenAmount: 1n
+});
+console.log(raisingAmount, platformFee, projectFee);
+```

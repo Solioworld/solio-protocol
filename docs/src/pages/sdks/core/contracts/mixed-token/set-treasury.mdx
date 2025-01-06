@@ -1,0 +1,48 @@
+<a id="setTreasury"></a>
+
+## setTreasury()
+
+```ts copy
+function setTreasury(client, props): Promise<`0x${string}`>
+```
+
+Sets the treasury address of a mixed token contract.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenSetTreasuryProps`](set-treasury.mdx#MixedTokenSetTreasuryProps) | [MixedTokenSetTreasuryProps](set-treasury.mdx#MixedTokenSetTreasuryProps) The properties to use for setting the treasury address. |
+
+<a id="MixedTokenSetTreasuryProps"></a>
+
+```ts copy
+type MixedTokenSetTreasuryProps: WriteContractBaseProps & {
+  address: Address;
+  treasuryAddress: Address;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mixedToken.write.setTreasury(writeClient, {
+ address: '0x...',
+ treasuryAddress: '0x...'
+});
+console.log(hash);
+```

@@ -1,0 +1,55 @@
+<a id="mint"></a>
+
+## mint()
+
+```ts copy
+function mint(client, props): Promise<`0x${string}`>
+```
+
+Mints mixed tokens by raising a specified amount of native tokens.
+
+This function first checks and approves the raising amount with the raising address
+as the spender. Then, it writes a contract to mint the mixed tokens.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`MixedTokenMintProps`](mint.mdx#MixedTokenMintProps) | [MixedTokenMintProps](mint.mdx#MixedTokenMintProps) The properties to use for minting. |
+
+<a id="MixedTokenMintProps"></a>
+
+```ts copy
+type MixedTokenMintProps: WriteContractBaseProps & {
+  raisingAddress: Address;
+  address: Address;
+  raisingAmount: bigint;
+  minMixedTokenAmount: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the result of the write contract.
+
+### Example
+
+```ts copy filename="mixed-token.ts"
+import { mixedToken } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await mint(writeClient, {
+ address: '0x...', // mixed token contract address
+ raisingAddress: '0x...',
+ raisingAmount: 1n,
+ minMixedTokenAmount: 1n
+});
+console.log(hash);
+```

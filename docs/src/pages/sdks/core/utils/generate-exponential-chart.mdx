@@ -1,0 +1,35 @@
+
+
+<a id="generateExponentialChart"></a>
+
+## generateExponentialChart()
+
+```ts copy
+function generateExponentialChart(props): BondingCurveChart
+```
+
+Generates a chart for an exponential bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`GenerateExponentialChartProps`](../types.mdx#GenerateExponentialChartProps) | [GenerateExponentialChartProps](../types.mdx#GenerateExponentialChartProps) An object containing the parameters `a` and `b` for the exponential bonding curve, and the `supply` of the token. |
+
+#### Returns
+
+[`BondingCurveChart`](../types.mdx#BondingCurveChart)
+
+An array of points on the chart, each containing the `supply`, `price`, `tvl`, and `marketCap` of the token.
+
+### Example
+
+```ts copy
+const params = {
+  a: 0.1,
+  b: 10,
+  supply: 100,
+}
+const res = generateExponentialChart(params)
+console.log(res)
+```

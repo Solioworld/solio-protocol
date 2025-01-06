@@ -1,0 +1,37 @@
+
+
+<a id="formatLinearParam"></a>
+
+## formatLinearParam()
+
+```ts copy
+function formatLinearParam(param): ParseLinearParam
+```
+
+Format FormatLinearParam into ParseLinearParam.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `param` | [`FormatLinearParam`](../types.mdx#FormatLinearParam) | [FormatLinearParam](../types.mdx#FormatLinearParam) Object containing `k`, `p`, and `finalSupply` as `BigNumber` numbers. |
+
+#### Returns
+
+[`ParseLinearParam`](../types.mdx#ParseLinearParam)
+
+- [ParseLinearParam](../types.mdx#ParseLinearParam) Object containing `initPrice`, `finalPrice` and `finalSupply` as numbers.
+
+### Example
+
+```ts copy
+import { parseEther } from 'viem';
+import { formatLinearParam } from @solio/core;
+const params = {
+  k: parseEther('1'),
+  p: parseEther('1'),
+  finalSupply: parseEther('1'),
+}
+const res = formatLinearParam(params)
+console.log(res)
+```

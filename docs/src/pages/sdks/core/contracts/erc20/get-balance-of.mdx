@@ -1,0 +1,65 @@
+<a id="getBalanceOf"></a>
+
+## getBalanceOf()
+
+```ts copy
+function getBalanceOf(client, props): Promise<bigint>
+```
+
+Get balance of a given account.
+
+If address is provided, call `balanceOf` of the given erc20 contract.
+If address is not provided, return the balance of the given account.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`ReadClient`](../../types.mdx#ReadClient) | [ReadClient](../../types.mdx#ReadClient) The read client to use. |
+| `props` | [`ERC20GetBalanceOfProps`](get-balance-of.mdx#ERC20GetBalanceOfProps) | [ERC20GetBalanceOfProps](get-balance-of.mdx#ERC20GetBalanceOfProps) The properties to use. |
+
+<a id="ERC20GetBalanceOfProps"></a>
+
+```ts copy
+type ERC20GetBalanceOfProps: {
+  address: Address;
+  account: Address;
+};
+```
+
+#### Returns
+
+`Promise`&lt;`bigint`&gt;
+
+The balance of the given account.
+
+### Examples
+
+```ts copy filename="erc20.ts"
+// for chain native token balance
+import { erc20 } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const balance = await erc20.read.getBalanceOf(readClient, { account: '0x...' });
+console.log(balance);
+```
+
+```ts copy filename="erc20.ts"
+// for erc20 token balance
+import { erc20 } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const balance = await erc20.read.getBalanceOf(readClient, {
+ address: '0x...', // ERC20 contract address
+ account: '0x...'
+});
+console.log(balance);
+```

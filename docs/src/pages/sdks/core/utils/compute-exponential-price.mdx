@@ -1,0 +1,33 @@
+<a id="computeExponentialPrice"></a>
+
+## computeExponentialPrice()
+
+```ts copy
+function computeExponentialPrice(props): number
+```
+
+Computes the price of an exponential bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`ComputeExponentialProps`](../types.mdx#ComputeExponentialProps) | [ComputeExponentialProps](../types.mdx#ComputeExponentialProps) An object containing the parameters `a` and `b` for the exponential bonding curve, and the `supply` of the token. |
+
+#### Returns
+
+`number`
+
+The current price of the token.
+
+### Example
+
+```ts copy
+const params = {
+  a: 0.1,
+  b: 10,
+  supply: 10,
+}
+const res = computeExponentialPrice(params)
+console.log(res)
+```

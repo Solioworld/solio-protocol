@@ -1,0 +1,73 @@
+<a id="checkAndApprove"></a>
+
+### checkAndApprove()
+
+```ts copy
+function checkAndApprove(client, props): Promise<undefined | `0x${string}`>
+```
+
+Checks if the current allowance for a given spender is less than the specified amount
+and approves the spender to transfer the specified amount of tokens from the given account
+if necessary.
+
+If the address is not the zero address and the existing allowance is less than the required amount,
+it calls the `approve` function of the specified ERC20 contract to approve the given amount.
+If the address is the zero address or the existing allowance is sufficient, it does nothing and returns undefined.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`ERC20CheckAndApproveProps`](check-and-approve.mdx#ERC20CheckAndApproveProps) | [ERC20CheckAndApproveProps](check-and-approve.mdx#ERC20CheckAndApproveProps) The properties containing the address, spender, amount, and account. |
+
+<a id="ERC20CheckAndApproveProps"></a>
+
+```ts copy
+type ERC20CheckAndApproveProps: WriteContractBaseProps & {
+  address: Address;
+  spender: Address;
+  amount: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;`undefined` \| \`0x$\{string\}\`&gt;
+
+The result of the approve call if approval is necessary, otherwise undefined.
+
+### Examples
+
+```ts copy filename="erc20.ts"
+// for default amount
+import { erc20 } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await checkAndApprove(writeClient, {
+ address: '0x...', // ERC20 contract address
+ spender: '0x...'
+});
+console.log(hash);
+```
+
+```ts copy filename="erc20.ts"
+// for custom amount (100wei)
+import { erc20 } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const hash = await checkAndApprove(writeClient, {
+ address: '0x...', // ERC20 contract address
+ spender: '0x...',
+ amount: 100n // 100 wei
+ });
+console.log(hash);
+```

@@ -1,0 +1,66 @@
+
+# Swap
+
+Transactions are a common operation in the solio protocol, the exchange with the bonding curve in solio affects the tvl and liquidity of the tokens, hence the term minting and destroying, the following example will show you how to use mint and burn to implement transactions
+
+```solidity copy
+interface IBondingToken{
+    function mint(address to, uint payAmount, uint minReceive) external payable;
+    function burn(address to, uint payAmount, uint minReceive) external;
+}
+```
+
+
+## A brief overview of the parameters:
+
+- to is the address to receive the specified tokens after they are minted. `to` is the address of the account that will receive the minted tokens
+
+- payAmount specifies the amount or number of tokens that the user pays for the bound asset during the minting process.
+
+- minReceive is the number of tokens to be received. Note that minReceive actually represents the minimum number of tokens you can accept to receive, and since there will be order conflicts in on-chain transactions, and there is even the possibility of being attacked by sandwiches, the proportional difference between the actual number of tokens to be received and the estimated number of tokens to be received represents the slippage that you can accept. You need to use the quote interface to get the estimated number of received tokens first.
+
+- When mint, if the bound token is a native token, you need to bring the value parameter.
+
+The call code is as follows.
+
+
+```solidity copy
+// approve first
+IERC20(assetToken).approve(address(token), 1 ether);
+// token mint
+token.mint(0xToAddr, 1 ether, 0);
+
+token.burn(0xToAddr, 1 ether, 0);
+```
+
+
+## Quote
+
+The Quote function allows you to get an on-chain or off-chain estimate of how many tokens can be minted or destroyed in the current state. Quote contains `estimateMint`, `estimateMintNeed` and `estimateBurn` functions, which are used to provide estimation information for minting or destroying tokens, including the amount of money paid by the user, the number of tokens returned, and the fees charged. They are `view methods`, which only read state information and do not modify the blockchain state, and are externally callable. The specific code is as follows:
+
+
+```solidity copy
+    function estimateMint(uint payAmount) external view returns (uint receivedAmount, uint paidAmount, uint platformFee, uint projectFee);
+
+    function estimateMintNeed(uint tokenAmountWant) external view returns (uint receivedAmount, uint paidAmount, uint platformFee, uint projectFee);
+
+    function estimateBurn(uint tokenAmount) external view returns (uint amountNeed, uint amountReturn, uint platformFee, uint projectFee);
+```
+
+estimateMint is to estimate how many bind tokens can be minted by paying how many bind tokens, estimateMintNeed means how many bind tokens need to be paid to mint how many bind tokens, estimateBurn means how many bind tokens can be obtained by destroying how many bind tokens.
+
+- `payAmount`: this is the amount the user pays when minting tokens. The purpose of this function is to estimate how many tokens the user will get based on this payment amount.
+
+- `tokenAmountWant`: this is the number of tokens the user expects to receive (the number of tokens to get after minting). The purpose of this function is to estimate the amount to be paid based on the number of tokens the user expects.
+
+- `receivedAmount`: the number of tokens the user will receive after payment. This is the number of tokens the user will be able to mint by paying a specific amount.
+
+- `paidAmount`: the amount actually paid by the user. Usually, `paidAmount` is the same as `payAmount`, but it may vary due to some factors such as fees or exchange rates.
+
+- `platformFee`: a platform fee, usually a handling fee for minting operations, which may be used for platform operations or rewards, etc.
+
+- `projectFee`: project fee, which indicates the fee charged by the project owner (e.g. the token minting process, the project owner may charge a certain percentage of the fee).
+
+
+With these methods, you can easily estimate and trade with solio.
+

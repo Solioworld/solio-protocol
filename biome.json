@@ -1,0 +1,89 @@
+{
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "include": [
+      "packages/*",
+      "examples/vite-react",
+      "examples/vite-vue",
+      "apps/*"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "bracketSpacing": true,
+    "formatWithErrors": true,
+    "lineWidth": 126
+  },
+  "linter": {
+    "ignore": [
+      "**/*.d.ts",
+      "tsconfig.app.json",
+      "tsconfig.node.json",
+      "examples/*",
+      "apps/*"
+    ],
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "useAnchorContent": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "nursery": {
+        "useComponentExportOnlyModules": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "error",
+        "useArrayLiterals": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "noReExportAll": "off",
+        "noDelete": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useShorthandArrayType": "off",
+        "noUnusedTemplateLiteral": "off",
+        "useNodejsImportProtocol": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noConfusingVoidType": "off",
+        "noConsoleLog": "off",
+        "noExplicitAny": "off",
+        "noSparseArray": "off"
+      }
+    }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "indentStyle": "space",
+      "lineWidth": 1
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "bracketSameLine": true
+    }
+  },
+  "organizeImports": {
+    "enabled": true
+  }
+}

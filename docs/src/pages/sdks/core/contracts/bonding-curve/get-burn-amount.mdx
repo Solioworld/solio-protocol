@@ -1,0 +1,79 @@
+<a id="getBurnAmount"></a>
+
+## getBurnAmount()
+
+```ts copy
+function getBurnAmount(client, props): Promise<bigint>
+```
+
+Reads the native token amount that needs to be burned when a certain amount
+of mixed token is burned.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`ReadClient`](../../types.mdx#ReadClient) | [ReadClient](../../types.mdx#ReadClient) The read client to use. |
+| `props` | [`BondingCurveGetBurnAmountProps`](get-burn-amount.mdx#BondingCurveGetBurnAmountProps) | [BondingCurveGetBurnAmountProps](get-burn-amount.mdx#BondingCurveGetBurnAmountProps) The properties to use. |
+
+<a id="BondingCurveGetBurnAmountProps"></a>
+
+- BondingCurveGetBurnAmountProps
+
+```ts copy
+type BondingCurveGetBurnAmountProps: BondingCurveProps & {
+  address: Address;
+  mixedTokenAmount: bigint;
+  currentSupply: bigint;
+};
+```
+
+#### Returns
+
+`Promise`&lt;`bigint`&gt;
+
+The native token amount.
+
+## Examples
+
+```ts copy filename="bonding-curve.ts"
+// for exponential
+import { bondingCurve } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const amount = await bondingCurve.read.getBurnAmount(readClient, {
+   address: '0x...', // bonding curve contract address
+  type: 'exponential',
+  param: {
+    a: 10000000000000000n,
+    b: 100000000000000000000000n,
+  },
+  mixedTokenAmount: 10000000000000000n,
+})
+```
+
+```ts copy filename="bonding-curve.ts"
+// for linear
+import { bondingCurve } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const amount = await bondingCurve.read.getBurnAmount(readClient, {
+  address: '0x...', // bonding curve contract address
+  type: 'linear',
+  param: {
+    initPrice: 0.001,
+    finalPrice: 1000,
+    supply: 1e32,
+  },
+  mixedTokenAmount: 10000000000000000n,
+})
+```
+

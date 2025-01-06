@@ -1,0 +1,34 @@
+
+
+<a id="encodeLinearParam"></a>
+
+## encodeLinearParam()
+
+```ts copy
+function encodeLinearParam(param): `0x${string}`
+```
+
+Encodes the parameters for a linear bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `param` | [`EncodeLinearParam`](../types.mdx#EncodeLinearParam) | [EncodeLinearParam](../types.mdx#EncodeLinearParam) An object containing the parameters `k` and `p` for the linear bonding curve. |
+
+#### Returns
+
+\`0x$\{string\}\`
+
+A hash representing the encoded ABI parameters.
+
+### Example
+
+```ts copy
+const params = {
+  k: 0.1,
+  p: 10,
+}
+const res = encodeLinearParam(params)
+console.log(res)
+```

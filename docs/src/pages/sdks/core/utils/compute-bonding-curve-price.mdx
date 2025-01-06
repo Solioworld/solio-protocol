@@ -1,0 +1,36 @@
+<a id="computeBondingCurvePrice"></a>
+
+## computeBondingCurvePrice()
+
+```ts copy
+function computeBondingCurvePrice(props): number
+```
+
+Computes the current price of a given bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`ComputeBondingCurveProps`](../types.mdx#ComputeBondingCurveProps) | [ComputeBondingCurveProps](../types.mdx#ComputeBondingCurveProps) An object containing the bonding curve type, its parameters, and the current `supply` of the token. |
+
+#### Returns
+
+`number`
+
+The current price of the token.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'linear',
+  param: {
+    k: 0.1,
+    p: 10,
+  },
+  supply: 10,
+}
+const res = computeBondingCurvePrice(params)
+console.log(res)
+```

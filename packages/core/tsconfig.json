@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "test/**/*.ts",
+    "test/**/*.json",
+    "gen-graphql.config.ts",
+    "../../vitest.shared.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}

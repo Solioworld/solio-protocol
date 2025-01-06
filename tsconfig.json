@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": true,
+
+    "allowJs": false,
+    "checkJs": false,
+
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+
+    "target": "es2022",
+    "lib": ["es2023"],
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "composite": true,
+    "resolveJsonModule": true,
+
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "skipLibCheck": true,
+    "noErrorTruncation": true,
+    "types": ["node", "vite/client", "vitest/importMeta","vitest/globals","@vitest/browser/matchers"],
+    "paths": {
+      "@solio/core": ["./packages/core/src"],
+      "@solio/core/*": ["./packages/core/src/*"],
+      "@solio/react-sdk": ["./packages/react-sdk"],
+      "@solio/react-sdk/*": ["./packages/react-sdk/src/*"],
+    }
+  },
+  "include": ["./vitest.shared.ts","./vitest.workspace.ts"]
+}

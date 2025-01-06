@@ -1,0 +1,64 @@
+# LaunchWhiteList
+
+### Function:
+
+- A whitelist is a mechanism commonly used in blockchain projects or token launches. It is a permissive list of addresses that can mint tokens for a specific period of time. Simply put, a whitelist is a pre-approved list of users who are only allowed to mint up to a specified number of tokens.
+
+### Deployment:
+
+The end timestamp of the whitelisting mechanism needs to be passed in when registerHook, as shown below, and tokens with firing whitelist hooks can be deployed by calling deployTokenWithHooks and passing in the hook address with the constructed hook registration parameters.
+
+```solidity copy
+LaunchWhitelistHook hook = new LaunchWhitelistHook(address(factory));
+address[] memory hooks = new address[](1);
+bytes[] memory datas = new bytes[](1);
+hooks[0] = address(hook); // encode(end timestamp); // encode(end timestamp).
+// encode(end timestamp)
+datas[0] = abi.encode(uint256(block.timestamp +1 days)); // encode(end timestamp); factory.deployToken
+factory.deployTokenWithHooks(token, 0,hooks, datas);
+```
+
+
+### Subsequent uses:
+
+# 1. whitelist function
+
+```solidity copy
+function whitelist(address token, address[] memory users, uint256[] memory amounts) external;
+```
+
+Function:* Used to set a whitelist of a group of users and their corresponding amounts for a specific token, needs to be initiated by the token administrator.
+
+#### Parameters:
+
+- token: contract address of the token, used to specify which token to whitelist for operation.
+
+- users: an array of user addresses, indicating the users that will be added to the whitelist.
+
+- amounts: array of amounts corresponding to the users, the specific limit values that can be assigned to each address (e.g., max purchase, max pickup, etc.). Call example.
+
+```solidity copy
+address[] memory users = new address[](1);
+uint256[] memory amounts = new uint256[](1);
+users[0] = 0xUser1; amounts[0] = 10000 euros.
+amounts[0] = 10000 ether.
+hook.whitelist(address(token), users, amounts);
+```
+2. removeLimit function
+
+```solidity copy
+function removeLimit(address token) external; hook.whitelist(address(token), users, amounts); ``2.
+```
+
+#### function:
+
+- Manually remove the whitelist limiting mechanism for a specific token, needs to be initiated by the token administrator.
+
+#### Parameters:
+
+- token: the contract address of the token, used to specify which token to remove for whitelist operation. Example call.
+
+```solidity copy
+hook.removeLimit(address(token));
+```
+So there are two conditions for the firing whitelist hook to fail, one is when the specified time has elapsed, and the other is when an administrator manually removes the

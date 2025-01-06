@@ -1,0 +1,37 @@
+
+
+<a id="encodeBondingCurveProps"></a>
+
+## encodeBondingCurveProps()
+
+```ts copy
+function encodeBondingCurveProps(props): `0x${string}`
+```
+
+Encodes the parameters for a bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`EncodeBondingCurveProps`](../types.mdx#EncodeBondingCurveProps) | [EncodeBondingCurveProps](../types.mdx#EncodeBondingCurveProps) An object containing the bonding curve type and its parameters. |
+
+#### Returns
+
+\`0x$\{string\}\`
+
+A hash representing the encoded ABI parameters.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'linear',
+  param: {
+    k: 0.1,
+    p: 10,
+  },
+}
+const res = encodeBondingCurveProps(params)
+console.log(res)
+```

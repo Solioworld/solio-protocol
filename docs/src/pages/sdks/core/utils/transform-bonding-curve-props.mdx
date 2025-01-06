@@ -1,0 +1,40 @@
+
+
+<a id="transformBondingCurveProps"></a>
+
+## transformBondingCurveProps()
+
+```ts copy
+function transformBondingCurveProps(props): `0x${string}`
+```
+
+Encodes the parameters for a bonding curve.
+
+If the `initPrice` property is present in `props.param`, it is assumed to be a linear bonding curve and the parameters are parsed.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`BondingCurveProps`](../types.mdx#BondingCurveProps) | [BondingCurveProps](../types.mdx#BondingCurveProps) An object containing the bonding curve type and its parameters. |
+
+#### Returns
+
+\`0x$\{string\}\`
+
+A hash representing the encoded ABI parameters.
+
+### Example
+
+```ts copy
+const params = {
+  type: 'linear',
+  param: {
+    initPrice: 10,
+    finalPrice: 110,
+    finalSupply: 100,
+  },
+}
+const res = transformBondingCurveProps(params)
+console.log(res)
+```

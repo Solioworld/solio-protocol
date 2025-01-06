@@ -1,0 +1,35 @@
+
+
+<a id="computeLinearTvl"></a>
+
+## computeLinearTvl()
+
+```ts copy
+function computeLinearTvl(props): number
+```
+
+Computes the total value locked of a linear bonding curve.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`ComputeLinearProps`](../types.mdx#ComputeLinearProps) | [ComputeLinearProps](../types.mdx#ComputeLinearProps) An object containing the parameters `k` and `p` for the linear bonding curve, and the `supply` of the token. |
+
+#### Returns
+
+`number`
+
+The total value locked in the bonding curve.
+
+### Example
+
+```ts copy
+const params = {
+  k: 0.1,
+  p: 10,
+  supply: 10,
+}
+const res = computeLinearTvl(params)
+console.log(res)
+```

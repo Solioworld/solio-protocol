@@ -1,0 +1,62 @@
+{
+  "name": "@solio/core",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "import": "./dist/constants/index.js",
+      "default": "./dist/constants/index.js"
+    },
+    "./contracts": {
+      "types": "./dist/contracts/index.d.ts",
+      "import": "./dist/contracts/index.js",
+      "default": "./dist/contracts/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js",
+      "default": "./dist/utils/index.js"
+    }
+  },
+  "scripts": {
+    "gen:graphql": "graphql-codegen --config ./gen-graphql.config.ts",
+    "typecheck": "tsc --noEmit --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
+    "clean": "rimraf dist tsconfig.build.tsbuildinfo tsconfig.tsbuildinfo",
+    "build": "pnpm clean && tsc --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
+    "test": "vitest -r"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/typescript": "^4.1.2",
+    "@graphql-codegen/typescript-generic-sdk": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.4.0",
+    "@types/node": "^22.10.1",
+    "jsdom": "^25.0.1",
+    "rimraf": "^6.0.1",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.6.2",
+    "vite": "^6.0.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "mathjs": "^14.0.1",
+    "viem": "^2.21.57"
+  }
+}

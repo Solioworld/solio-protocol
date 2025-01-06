@@ -1,0 +1,45 @@
+# QuickStart
+
+- This is a simple guide to help you quickly install and use the Solio contract.
+
+## Installation
+
+1. Install the Forge toolchain
+  The Solio contract depends on the Foundry Solidity development framework, please install the Forge toolchain according to the Foundry documentation first.
+
+2. Build the Solio core contract
+  Once you have completed step 1, you can start installing the Solio contract and its dependencies.
+
+```sh copy
+# clone github repository
+git clone https://github.com/Solioworld/solio-contracts.git
+
+# pull module dependency
+git submodule update --init --recursive
+
+# compile contracts
+forge build
+
+# run test templates
+forge test
+```
+
+## Usage
+
+- Once installed, you can use the contracts in the library by importing them:
+
+```solidity copy
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "interfaces/IBondingFactory.sol";
+import "interfaces/IBondingToken.sol";
+
+function run() public {
+    IBondingFactory factory = IBondingFactory(payable(0xAddress));
+    IBondingToken token = IBondingToken(payable(0xAddress));
+
+}
+```
+
+You can then interact with solio swap using the interface methods provided by the solio contract, the usage of which is explained in detail below.

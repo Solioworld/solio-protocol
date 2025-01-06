@@ -1,0 +1,72 @@
+<a id="launchMixedToken"></a>
+
+## launchMixedToken()
+
+```ts copy
+function launchMixedToken(client, props): Promise<`0x${string}`>
+```
+
+Deploys a mixed token with specified properties and optional hooks.
+
+This function handles the deployment of a mixed token on the blockchain
+using provided parameters such as bonding curve, token type, tax rates,
+and hooks. If the token type is 'LOL', default parameters are used for
+bonding curve and tax rates.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`WriteClient`](../../types.mdx#WriteClient) | [WriteClient](../../types.mdx#WriteClient) The write client to use. |
+| `props` | [`FactoryLaunchMixedTokenProps`](launch-mixed-token.mdx#FactoryLaunchMixedTokenProps) | [FactoryLaunchMixedTokenProps](launch-mixed-token.mdx#FactoryLaunchMixedTokenProps) The properties required to launch the mixed token. |
+
+<a id="FactoryLaunchMixedTokenProps"></a>
+
+```ts copy
+type FactoryLaunchMixedTokenProps: WriteContractBaseProps & {
+  address: Address;
+  mixedToken: MixedTokenParam;
+};
+```
+
+#### Returns
+
+`Promise`&lt;\`0x$\{string\}\`&gt;
+
+A promise that resolves to the transaction result.
+
+### Examples
+
+```ts copy filename="factory.ts"
+// launch hodl token
+import { factory } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const mixedTokenParam: MixedTokenParam = { type: 'HODL', ... };
+const hash = await factory.write.launchMixedToken(writeClient, {
+ address: '0x...', // factory contract address
+ mixedToken: mixedTokenParam
+});
+console.log(hash);
+```
+
+```ts copy filename="factory.ts"
+// launch lol token
+import { factory } from '@solio/core';
+import { createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
+const writeClient = createWalletClient({
+ chain: sepolia,
+ transport: custom(window.ethereum),
+});
+const mixedTokenParam: MixedTokenParam = { type: 'LOL', ... };
+const hash = await factory.write.launchMixedToken(writeClient, {
+ address: '0x...', // factory contract address
+ mixedToken: mixedTokenParam
+});
+console.log(hash);
+```

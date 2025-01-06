@@ -1,0 +1,55 @@
+<a id="getAllowance"></a>
+
+## getAllowance()
+
+```ts copy
+function getAllowance(client, props): Promise<bigint>
+```
+
+Get the allowance of a given account and spender.
+
+If the address is not the zero address, it calls the `allowance` function
+of the specified ERC20 contract to get the allowance.
+If the address is the zero address, it returns the default approve amount.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`ReadClient`](../../types.mdx#ReadClient) | [ReadClient](../../types.mdx#ReadClient) The read client to use. |
+| `props` | [`ERC20GetAllowanceProps`](get-allowance.mdx#ERC20GetAllowanceProps) | [ERC20GetAllowanceProps](get-allowance.mdx#ERC20GetAllowanceProps) The properties containing the address, spender, and account. |
+
+<a id="ERC20GetAllowanceProps"></a>
+
+```ts copy
+type ERC20GetAllowanceProps: {
+  address: Address;
+  spender: Address;
+  account: Address;
+};
+```
+
+#### Returns
+
+`Promise`&lt;`bigint`&gt;
+
+The allowance as a bigint if the address is valid, otherwise the default approve amount.
+
+### Example
+
+```ts copy filename="erc20.ts"
+// for get erc20 token allowance
+import { erc20 } from '@solio/core';
+import { createClient, http } from 'viem';
+import { sepolia } from 'viem/chains';
+const readClient = createClient({
+ chain: sepolia,
+ transport: http(),
+});
+const allowance = await erc20.read.getAllowance(readClient, {
+ address: '0x...', // ERC20 contract address
+ spender: '0x...',
+ account: '0x...'
+});
+console.log(allowance);
+```

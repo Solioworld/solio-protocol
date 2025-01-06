@@ -1,0 +1,35 @@
+
+
+<a id="parseLinearParam"></a>
+
+## parseLinearParam()
+
+```ts copy
+function parseLinearParam(param): EncodeLinearParam
+```
+
+Parse linear bonding curve parameters.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `param` | [`ParseLinearParam`](../types.mdx#ParseLinearParam) | [ParseLinearParam](../types.mdx#ParseLinearParam) Linear bonding curve parameters. |
+
+#### Returns
+
+[`EncodeLinearParam`](../types.mdx#EncodeLinearParam)
+
+- [EncodeLinearParam](../types.mdx#EncodeLinearParam) Encoded linear bonding curve parameters.
+
+### Example
+
+```ts copy
+const params = {
+  initPrice: 10,
+  finalPrice: 110,
+  finalSupply: 100,
+}
+const res = parseLinearParam(params)
+console.log(res)
+```

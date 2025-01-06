@@ -1,0 +1,31 @@
+
+
+<a id="formatSafeToString"></a>
+
+## formatSafeToString()
+
+```ts copy
+function formatSafeToString(value): string
+```
+
+Safely formats a number to a string, handling very large or very small numbers with exponents.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `any` | The value to format. |
+
+#### Returns
+
+`string`
+
+- The formatted string.
+
+### Example
+
+```ts copy
+const num = 1.23e-45;
+const formatted = formatSafeToString(num);
+console.log(formatted);
+```

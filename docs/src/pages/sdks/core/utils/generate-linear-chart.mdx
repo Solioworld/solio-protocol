@@ -1,0 +1,35 @@
+
+
+<a id="generateLinearChart"></a>
+
+## generateLinearChart()
+
+```ts copy
+function generateLinearChart(props): BondingCurveChart
+```
+
+Generates a linear bonding curve chart.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`GenerateLinearChartProps`](../types.mdx#GenerateLinearChartProps) | [GenerateLinearChartProps](../types.mdx#GenerateLinearChartProps) An object containing the parameters `k` and `p` for the linear bonding curve, and the current `supply` of the token. |
+
+#### Returns
+
+[`BondingCurveChart`](../types.mdx#BondingCurveChart)
+
+A chart of the linear bonding curve, with the supply on the x-axis, the price on the y-axis, and the total value locked and market capitalization as additional data points.
+
+### Example
+
+```ts copy
+const params = {
+  k: 0.1,
+  p: 10,
+  supply: 10,
+}
+const res = generateLinearChart(params)
+console.log(res)
+```

@@ -1,0 +1,39 @@
+
+
+<a id="formatBondingCurveProps"></a>
+
+## formatBondingCurveProps()
+
+```ts copy
+function formatBondingCurveProps(props): ParseBondingCurveParam
+```
+
+Format BondingCurveProps into ParseBondingCurveParam.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `props` | [`FormatBondingCurveProps`](../types.mdx#FormatBondingCurveProps) | [FormatBondingCurveProps](../types.mdx#FormatBondingCurveProps) BondingCurveProps |
+
+#### Returns
+
+[`ParseBondingCurveParam`](../types.mdx#ParseBondingCurveParam)
+
+- [ParseBondingCurveParam](../types.mdx#ParseBondingCurveParam) Formatted ParseBondingCurveParam
+
+### Example
+
+```ts copy
+const params = {
+  type: 'linear',
+  param: {
+    k: parseEther('1'),
+    p: parseEther('1'),
+    finalSupply: parseEther('1'),
+  },
+}
+const res = formatBondingCurveProps(params)
+console.log(res)
+}
+```
