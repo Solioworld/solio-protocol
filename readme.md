@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="180" src="./logo.png" alt="Solio logo"/>
+</p>
+
 <h1 align="center">Solio Protocol</h1>
 
 <p align="center">
