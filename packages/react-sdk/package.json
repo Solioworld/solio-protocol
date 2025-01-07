@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "description": "",
   "keywords": [],
-  "author": "",
+  "author": "solio",
   "license": "Apache-2.0",
   "type": "module",
   "engines": {
     "node": "22.x"
   },
   "sideEffects": false,
-  "main": "./src/index.ts",
+  "main": "./dist/index.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "clean": "rimraf dist tsconfig.build.tsbuildinfo",
     "build": "pnpm clean && tsc --project tsconfig.build.json",

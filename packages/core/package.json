@@ -1,8 +1,11 @@
 {
   "name": "@solio/core",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.1",
   "license": "Apache-2.0",
   "type": "module",
+  "description": "The Bonding Core SDK is a JavaScript library that provides a simple and efficient way to interact with the Solio Protocol. It allows developers to easily integrate the protocol into their applications and build custom solutions on top of it.",
+  "keywords": [],
+  "author": "solio",
   "engines": {
     "node": "22.x"
   },
@@ -11,6 +14,16 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solioworld/solio-protocol.git"
+  },
+  "homepage": "https://sdk.solio.world/sdks/core",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
