@@ -9,6 +9,10 @@ The Consensus-Driven Bonding Curve DeFi Protocol for Fair Token Generation and I
 </p>
 
 <p align="center">
+  <a href="https://github.com/Solioworld/solio-protocol/actions/workflows/build-test.yml"><img src="https://github.com/Solioworld/solio-protocol/actions/workflows/build-test.yml/badge.svg?branch=main" alt="build test"></a>
+</p>
+
+<p align="center">
 <a href="https://solio-protocol.pages.dev" target="_blank" rel="noopener noreferrer">📃 Documentation</a>
 </p>
 
@@ -26,7 +30,7 @@ The Consensus-Driven Bonding Curve DeFi Protocol for Fair Token Generation and I
 
 | Name                                       | Version    | Description |
 | ------------------------------------------ | ---------- | ----------- |
-| [@solio/core](./packages/core)           | 0.0.1      | Core SDK    |
+| [@solio/core](./packages/core)           | ![version](https://img.shields.io/npm/v/%40solio%2Fcore?label=%20)      | Core SDK    |
 | [@solio/react-sdk](./packages/react-sdk) | developing | React SDK   |
 
 ## Examples

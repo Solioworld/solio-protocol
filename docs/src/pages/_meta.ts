@@ -13,8 +13,12 @@ export default {
     title: "SDKs",
     type: "page",
   },
+  apis: {
+    title: "APIs",
+    type: "page",
+  },
   examples: {
     title: "Examples",
     type: "page",
-  },
+  }
 };
