@@ -1,6 +1,6 @@
 {
   "name": "@solio/core",
-  "version": "0.0.1-beta.1",
+  "version": "0.1.0-beta.1",
   "license": "Apache-2.0",
   "type": "module",
   "description": "The Bonding Core SDK is a JavaScript library that provides a simple and efficient way to interact with the Solio Protocol. It allows developers to easily integrate the protocol into their applications and build custom solutions on top of it.",
@@ -47,7 +47,6 @@
     }
   },
   "scripts": {
-    "gen:graphql": "graphql-codegen --config ./gen-graphql.config.ts",
     "typecheck": "tsc --noEmit --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
     "clean": "rimraf dist tsconfig.build.tsbuildinfo tsconfig.tsbuildinfo",
     "build": "pnpm clean && tsc --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
@@ -55,21 +54,17 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@graphql-codegen/cli": "^5.0.3",
-    "@graphql-codegen/typescript": "^4.1.2",
-    "@graphql-codegen/typescript-generic-sdk": "^4.0.1",
-    "@graphql-codegen/typescript-operations": "^4.4.0",
-    "@types/node": "^22.10.1",
-    "jsdom": "^25.0.1",
+    "@types/node": "^22.13.1",
+    "jsdom": "^26.0.0",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.6.2",
-    "vite": "^6.0.3",
+    "vite": "^6.1.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.5"
   },
   "dependencies": {
-    "mathjs": "^14.0.1",
-    "viem": "^2.21.57"
+    "mathjs": "^14.2.1",
+    "viem": "^2.22.23"
   }
 }

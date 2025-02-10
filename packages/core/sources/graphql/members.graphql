@@ -1,8 +1,0 @@
-query fetchUserBalances($user: ID!) {
-  members(where: { user_: { id: $user } }, first: 1000) {
-    balance
-    token {
-      addr
-    }
-  }
-}

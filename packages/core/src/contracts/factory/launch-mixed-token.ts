@@ -68,6 +68,9 @@ export type FactoryLaunchMixedTokenProps = WriteContractBaseProps & {
  */
 export const launchMixedToken = async (client: WriteClient, props: FactoryLaunchMixedTokenProps) => {
   const { address, mixedToken, ...base } = props;
+  if(isZeroAddress(mixedToken.raisingAddress)) {
+    throw new Error('The raising address is zero!');
+  }
   let account = base.account;
   if (!account) {
     [account] = await client.getAddresses();
@@ -115,14 +118,12 @@ export const launchMixedToken = async (client: WriteClient, props: FactoryLaunch
     data,
   };
   const fastMintAmount = mixedToken.fastMintAmount ?? BigInt(0);
-  const value = isZeroAddress(mixedToken.raisingAddress) ? fastMintAmount : BigInt(0);
   return await writeContract(client, {
     ...base,
     account,
     address,
     abi: factoryAbi,
     functionName: 'deployTokenWithHooks',
-    args: [calldata, fastMintAmount, hooks, hookCalldata],
-    value,
+    args: [calldata, fastMintAmount, hooks, hookCalldata]
   });
 };
