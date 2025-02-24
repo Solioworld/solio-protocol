@@ -1,12 +1,21 @@
-import { http, type Chain, createClient, createWalletClient, custom } from 'viem';
-import { sepolia } from 'viem/chains';
+import {
+  http,
+  type Chain,
+  createClient,
+  createWalletClient,
+  custom,
+} from "viem";
+import { sepolia } from "viem/chains";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type EthereumProvider = { request(...args: any): Promise<any> };
   interface Window {
     okxwallet: EthereumProvider;
-    ethereum: EthereumProvider & { isAlphaWallet?: boolean; isTokenPocket?: boolean };
+    ethereum: EthereumProvider & {
+      isAlphaWallet?: boolean;
+      isTokenPocket?: boolean;
+    };
   }
 }
 
@@ -18,7 +27,6 @@ const {
   VITE_LAUNCH_TIME_ADDRESS,
   VITE_LIMIT_ADDRESS,
   VITE_WHITELIST_ADDRESS,
-  VITE_ROUTER_ADDRESS,
   VITE_HODL_ADDRESS,
   VITE_HODL_INDEX,
   VITE_LOL_ADDRESS,
@@ -29,7 +37,6 @@ const {
 export const factoryAddress = VITE_FACTORY_ADDRESS;
 export const exponentialAddress = VITE_EXPONENTIAL_ADDRESS;
 export const linearAddress = VITE_LINEAR_ADDRESS;
-export const routerAddress = VITE_ROUTER_ADDRESS;
 export const ipfsUrl = VITE_IPFS_URL;
 export const launchTimeAddress = VITE_LAUNCH_TIME_ADDRESS;
 export const limitAddress = VITE_LIMIT_ADDRESS;
@@ -40,20 +47,9 @@ export const lolAddress = VITE_LOL_ADDRESS;
 export const lolIndex = BigInt(VITE_LOL_INDEX);
 export const raisingAddress = VITE_RAISING_ADDRESS;
 
-const SEPOLIA_RPCS: Chain['rpcUrls'] = {
+const SEPOLIA_RPCS: Chain["rpcUrls"] = {
   default: {
-    http: [
-      'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
-      'https://rpc.sepolia.org',
-      'https://rpc.ankr.com/eth_sepolia',
-    ],
-  },
-  public: {
-    http: [
-      'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
-      'https://rpc.sepolia.org',
-      'https://rpc.ankr.com/eth_sepolia',
-    ],
+    http: ["https://ethereum-sepolia-rpc.publicnode.com", "https://rpc.sepolia.org"],
   },
 };
 
@@ -64,5 +60,6 @@ export const readClient = createClient({
 
 export const writeClient = createWalletClient({
   chain: { ...sepolia, rpcUrls: SEPOLIA_RPCS },
+  //@ts-ignore
   transport: custom(window.ethereum),
 });

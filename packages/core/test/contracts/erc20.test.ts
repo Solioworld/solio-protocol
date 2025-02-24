@@ -1,6 +1,6 @@
 import { defaultApproveAmount } from '@/constants';
 import { erc20 } from '@/index';
-import { hodlAddress, raisingAddress, readClient, routerAddress, writeClient } from 'test/constant';
+import { hodlAddress, raisingAddress, readClient, writeClient } from 'test/constant';
 import { type WriteContractErrorType, isHash, parseEther, zeroAddress } from 'viem';
 import { describe, expect, it } from 'vitest';
 
@@ -30,7 +30,7 @@ describe('erc20 read', async () => {
   it('should getAllowance zero address', async () => {
     const result = await erc20.read.getAllowance(readClient, {
       address: zeroAddress,
-      spender: routerAddress,
+      spender: hodlAddress,
       account: accountAddress,
     });
     expect(result).toBe(defaultApproveAmount);
@@ -38,15 +38,15 @@ describe('erc20 read', async () => {
   it('should getAllowance erc20', async () => {
     const result = await erc20.read.getAllowance(readClient, {
       address: raisingAddress,
-      spender: routerAddress,
+      spender: hodlAddress,
       account: accountAddress,
     });
     expect(result).toBeTypeOf('bigint');
   });
   it('should getAllowance mixed token', async () => {
     const result = await erc20.read.getAllowance(readClient, {
-      address: hodlAddress,
-      spender: routerAddress,
+      address: raisingAddress,
+      spender: hodlAddress,
       account: accountAddress,
     });
     expect(result).toBeTypeOf('bigint');
@@ -56,7 +56,7 @@ describe('erc20 read', async () => {
   it('should approve chain token', async () => {
     const result = await erc20.write.approve(writeClient, {
       address: zeroAddress,
-      spender: routerAddress,
+      spender: hodlAddress,
       account: accountAddress,
     });
     expect(result).toBeUndefined();
@@ -65,7 +65,7 @@ describe('erc20 read', async () => {
     try {
       const result = await erc20.write.approve(writeClient, {
         address: raisingAddress,
-        spender: routerAddress,
+        spender: hodlAddress,
         amount: parseEther('1'),
       });
       expect(result ? isHash(result) : false).toBe(true);
@@ -77,8 +77,8 @@ describe('erc20 read', async () => {
   it('should approve mixed token', async () => {
     try {
       const result = await erc20.write.approve(writeClient, {
-        address: hodlAddress,
-        spender: routerAddress,
+        address: raisingAddress,
+        spender: hodlAddress,
       });
       expect(result ? isHash(result) : false).toBe(true);
     } catch (error: unknown) {
@@ -93,7 +93,7 @@ describe('erc20 write', async () => {
     try {
       const result = await erc20.write.approve(writeClient, {
         address: raisingAddress,
-        spender: routerAddress,
+        spender: hodlAddress,
         amount: parseEther('1'),
       });
       expect(result ? isHash(result) : false).toBe(true);
@@ -105,8 +105,8 @@ describe('erc20 write', async () => {
   it('should approve mixed mixed', async () => {
     try {
       const result = await erc20.write.approve(writeClient, {
-        address: hodlAddress,
-        spender: routerAddress,
+        address: raisingAddress,
+        spender: hodlAddress,
       });
       expect(result ? isHash(result) : false).toBe(true);
     } catch (error: unknown) {
@@ -119,7 +119,7 @@ describe('erc20 write', async () => {
     try {
       const result = await erc20.write.checkAndApprove(writeClient, {
         address: raisingAddress,
-        spender: routerAddress,
+        spender: hodlAddress,
         amount: parseEther('1'),
       });
       expect(result ? isHash(result) : false).toBe(true);
@@ -132,8 +132,8 @@ describe('erc20 write', async () => {
   it('should checkAndApprove mixed token', async () => {
     try {
       const result = await erc20.write.approve(writeClient, {
-        address: hodlAddress,
-        spender: routerAddress,
+        address: raisingAddress,
+        spender: hodlAddress,
       });
       expect(result ? isHash(result) : false).toBe(true);
     } catch (error: unknown) {

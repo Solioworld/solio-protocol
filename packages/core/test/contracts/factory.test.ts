@@ -9,7 +9,6 @@ import {
   limitAddress,
   raisingAddress,
   readClient,
-  routerAddress,
   writeClient,
 } from 'test/constant';
 import { type WriteContractErrorType, isHash, parseEther } from 'viem';
@@ -80,10 +79,6 @@ describe('factory read', async () => {
   //     fastMintAmount: BigInt(1e18), // 1 eth
   //   },
   // });
-  it('should getRoute', async () => {
-    const result = await factory.read.getRouter(readClient, { address: factoryAddress });
-    expect(result.toLowerCase()).toBe(routerAddress.toLowerCase());
-  });
   it('should getMixedTokenWithIndex', async () => {
     const result = await factory.read.getMixedTokenWithIndex(readClient, {
       address: factoryAddress,

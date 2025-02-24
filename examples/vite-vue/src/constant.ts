@@ -1,27 +1,25 @@
-import { http, type Chain, createClient, createWalletClient, custom } from 'viem';
-import { sepolia } from 'viem/chains';
+import {
+  http,
+  type Chain,
+  createClient,
+  createWalletClient,
+  custom,
+} from "viem";
+import { sepolia } from "viem/chains";
 
 declare global {
   interface Window {
     okxwallet: EthereumProvider;
-    ethereum: EthereumProvider & { isAlphaWallet?: boolean; isTokenPocket?: boolean };
+    ethereum: EthereumProvider & {
+      isAlphaWallet?: boolean;
+      isTokenPocket?: boolean;
+    };
   }
 }
 
-const SEPOLIA_RPCS: Chain['rpcUrls'] = {
+const SEPOLIA_RPCS: Chain["rpcUrls"] = {
   default: {
-    http: [
-      'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
-      'https://rpc.sepolia.org',
-      'https://rpc.ankr.com/eth_sepolia',
-    ],
-  },
-  public: {
-    http: [
-      'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
-      'https://rpc.sepolia.org',
-      'https://rpc.ankr.com/eth_sepolia',
-    ],
+    http: ["https://rpc.sepolia.org", "https://rpc.ankr.com/eth_sepolia"],
   },
 };
 
