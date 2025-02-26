@@ -1,8 +1,8 @@
 export default {
-  "index": "QuickStart",
-  '-- Examples': {
-    type: 'separator',
-    title: 'Examples',
+  index: "QuickStart",
+  "-- Examples": {
+    type: "separator",
+    title: "Examples",
   },
   "bonding-curve-calculator": "Bonding Curve Calculator",
   react: "React",

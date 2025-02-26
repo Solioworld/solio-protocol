@@ -33,7 +33,7 @@
   "sanitizeComments": true,
   "expandObjects": true,
   "mergeReadme": true,
-  "entryFileName": "index",
+  "entryFileName": "page",
   "excludeScopesInPaths": true,
   "flattenOutputFiles": false,
   "outputFileStrategy": "modules",

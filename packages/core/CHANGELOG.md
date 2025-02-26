@@ -1,16 +1,14 @@
-# 0.1.0
+# 2.0
 
-## Remove
-
-### not in support of address zero as an anchoring token
+## Change
   
-- factory ``launchMixedToken`` function
+- factory ``launchMixedToken`` function, not in support of address zero as an anchoring token
 
-### remove router
+## Remove 
 
+- factory ``getRouter`` function
 - router ``getFactory``  function
 - router ``getAmountOut`` function
 - router ``mint`` function
 - router ``swap`` function
 
-### lol token change

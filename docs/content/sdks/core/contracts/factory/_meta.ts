@@ -3,12 +3,10 @@ export default {
     type: 'separator',
     title: 'Read',
   },
-  "get-factory": "getFactory",
-  "get-amount-out": "getAmountOut",
+  "get-mixed-token-with-index": "getMixedTokenWithIndex",
   '-- write': {
     type: 'separator',
     title: 'Write',
   },
-  "mint": "mint",
-  "swap": "swap",
+  "launch-mixed-token": "launchMixedToken",
 }
