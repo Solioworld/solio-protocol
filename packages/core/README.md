@@ -12,7 +12,7 @@ npm install @solio/core viem
 
 ## Usage
 
-- [CHANGELOG](./changelog)
+- [CHANGELOG](./CHANGELOG.md)
 
 ### Create clients
 

@@ -1,6 +1,6 @@
-import type { Account, Address, Chain, Client, RpcSchema, Transport, WalletActions } from 'viem';
+import type { Account, Address, Chain, Client, RpcSchema, Transport, WalletClient } from 'viem';
 
-export type WriteClient = Client<Transport, Chain, Account | undefined, RpcSchema, WalletActions<Chain, Account | undefined>>;
+export type WriteClient = WalletClient<Transport, Chain, Account | undefined, RpcSchema | undefined>;
 
 export type ReadClient = Client<Transport, Chain>;
 

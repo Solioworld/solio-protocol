@@ -20,7 +20,6 @@
         <label>Fast Mint Amount: <input v-model="mixedToken.fastMintAmount" type="number" /></label>
       </div>
       <label>
-        <button @click="getRoute">Get Route</button>
         <button @click="getMixedTokenWithIndex">Get Mixed Token With Index</button>
         <button @click="launchMixedToken">Launch Mixed Token</button>
       </label>
@@ -56,11 +55,6 @@ const mixedToken = ref({
   fastMintAmount: BigInt(0),
 });
 const result = ref('');
-
-const getRoute = async () => {
-  const res = await factory.read.getRouter(readClient, { address: address.value });
-  result.value = res;
-};
 
 const getMixedTokenWithIndex = async () => {
   const res = await factory.read.getMixedTokenWithIndex(readClient, {

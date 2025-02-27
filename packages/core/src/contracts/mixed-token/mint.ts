@@ -47,7 +47,7 @@ export type MixedTokenMintProps = WriteContractBaseProps & {
  */
 export const mint = async (client: WriteClient, props: MixedTokenMintProps) => {
   const { raisingAddress, address, raisingAmount, minMixedTokenAmount, ...base } = props;
-  if(isZeroAddress(raisingAddress)) {
+  if (isZeroAddress(raisingAddress)) {
     throw new Error('The raising address is zero!');
   }
   let account = base.account;
@@ -61,6 +61,6 @@ export const mint = async (client: WriteClient, props: MixedTokenMintProps) => {
     address,
     abi: mixedTokenAbi,
     functionName: 'mint',
-    args: [account, raisingAmount, minMixedTokenAmount]
+    args: [account, raisingAmount, minMixedTokenAmount],
   });
 };

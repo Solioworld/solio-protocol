@@ -13,7 +13,7 @@ The Consensus-Driven Bonding Curve DeFi Protocol for Fair Token Generation and I
 </p>
 
 <p align="center">
-<a href="https://solio-protocol.pages.dev" target="_blank" rel="noopener noreferrer">📃 Documentation</a>
+<a href="https://sdk.solio.world" target="_blank" rel="noopener noreferrer">📃 Documentation</a>
 </p>
 
 ## Features

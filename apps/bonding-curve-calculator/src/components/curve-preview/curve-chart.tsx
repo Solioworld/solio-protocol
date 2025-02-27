@@ -1,6 +1,7 @@
 import { cn, formatNumberView } from '@/utils';
 
 import type { ChartType } from '@/types';
+import { DialogDescription } from '@radix-ui/react-dialog';
 import {
   type BondingCurveChart,
   type BondingCurveChartItem,
@@ -8,7 +9,6 @@ import {
   computeBondingCurveTvl,
   generateBondingCurveChart,
 } from '@solio/core';
-import { DialogDescription } from '@radix-ui/react-dialog';
 import { Chart, type ChartDataset } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { CircleMinus, CirclePlus, ListRestart, Maximize2 } from 'lucide-react';

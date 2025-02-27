@@ -36,5 +36,5 @@
       "@solio/react-sdk/*": ["./packages/react-sdk/src/*"],
     }
   },
-  "include": ["./vitest.shared.ts","./vitest.workspace.ts"]
+  "include": ["./vitest.shared.ts","./vitest.workspace.ts"],
 }

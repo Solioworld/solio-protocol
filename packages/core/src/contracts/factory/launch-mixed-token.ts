@@ -68,7 +68,7 @@ export type FactoryLaunchMixedTokenProps = WriteContractBaseProps & {
  */
 export const launchMixedToken = async (client: WriteClient, props: FactoryLaunchMixedTokenProps) => {
   const { address, mixedToken, ...base } = props;
-  if(isZeroAddress(mixedToken.raisingAddress)) {
+  if (isZeroAddress(mixedToken.raisingAddress)) {
     throw new Error('The raising address is zero!');
   }
   let account = base.account;
@@ -124,6 +124,6 @@ export const launchMixedToken = async (client: WriteClient, props: FactoryLaunch
     address,
     abi: factoryAbi,
     functionName: 'deployTokenWithHooks',
-    args: [calldata, fastMintAmount, hooks, hookCalldata]
+    args: [calldata, fastMintAmount, hooks, hookCalldata],
   });
 };

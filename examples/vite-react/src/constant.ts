@@ -1,11 +1,5 @@
-import {
-  http,
-  type Chain,
-  createClient,
-  createWalletClient,
-  custom,
-} from "viem";
-import { sepolia } from "viem/chains";
+import { http, type Chain, createClient, createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,9 +13,9 @@ declare global {
   }
 }
 
-const SEPOLIA_RPCS: Chain["rpcUrls"] = {
+const SEPOLIA_RPCS: Chain['rpcUrls'] = {
   default: {
-    http: ["https://rpc.sepolia.org", "https://rpc.ankr.com/eth_sepolia"],
+    http: ['https://ethereum-sepolia-rpc.publicnode.com', 'https://rpc.sepolia.org'],
   },
 };
 

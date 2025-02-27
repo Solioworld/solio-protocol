@@ -1,11 +1,5 @@
-import {
-  http,
-  type Chain,
-  createClient,
-  createWalletClient,
-  custom,
-} from "viem";
-import { sepolia } from "viem/chains";
+import { http, type Chain, createClient, createWalletClient, custom } from 'viem';
+import { sepolia } from 'viem/chains';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,9 +41,9 @@ export const lolAddress = VITE_LOL_ADDRESS;
 export const lolIndex = BigInt(VITE_LOL_INDEX);
 export const raisingAddress = VITE_RAISING_ADDRESS;
 
-const SEPOLIA_RPCS: Chain["rpcUrls"] = {
+const SEPOLIA_RPCS: Chain['rpcUrls'] = {
   default: {
-    http: ["https://ethereum-sepolia-rpc.publicnode.com", "https://rpc.sepolia.org"],
+    http: ['https://ethereum-sepolia-rpc.publicnode.com', 'https://rpc.sepolia.org'],
   },
 };
 

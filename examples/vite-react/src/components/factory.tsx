@@ -25,11 +25,6 @@ export const Factory = () => {
     fastMintAmount: BigInt(0),
   });
 
-  const handleReadGetRoute = async () => {
-    const result = await factory.read.getRouter(readClient, { address });
-    console.log(result);
-  };
-
   const handleReadGetMixedTokenWithIndex = async () => {
     const result = await factory.read.getMixedTokenWithIndex(readClient, {
       address,
@@ -218,7 +213,6 @@ export const Factory = () => {
       </label>
 
       <div>
-        <button onClick={handleReadGetRoute}>Get Route</button>
         <button onClick={handleReadGetMixedTokenWithIndex}>Get Mixed Token With Index</button>
         <button onClick={handleWriteLaunchMixedToken}>Launch Mixed Token</button>
       </div>
