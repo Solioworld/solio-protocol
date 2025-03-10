@@ -1,0 +1,388 @@
+# Subgraph Schema Entities
+
+
+## Platform (Entity)
+
+- Core Configuration Hub: Stores platform-level settings (factory/admin/treasury addresses, tax rates).
+- Supports Token Standards: Links to TokenType entities (e.g., ERC20 implementations).
+- Bonding Curve Registry: Manages supported bonding curve algorithms via BondingCurveType.
+- Metrics: Tracks total deployed tokens and network metadata (deployment block, chain ID).
+
+```graphql copy
+"Platform Info"
+type Platform @entity {
+  "Platform Id Is Factory Contract Addr e.g. 0xaddr"
+  id: Bytes!
+  "Blockchain Network e.g. bsc,base"
+  network: String!
+  "Deploy Hash , e.g. 0xHash"
+  deployHash: Bytes!
+  "Platform Factory Contract Address e.g. 0xAddr"
+  factory: Bytes!
+  "Platform Admin Address e.g. 0xAddr"
+  admin: Bytes!
+  "Platform Treasury Address e.g. 0xAddr"
+  treasury: Bytes!
+  "Platform Route Contract Address e.g. 0xAddr"
+  route: Bytes!
+  "Current Mint Tax Rate, base 1e6, e.g. 0.01 = 1%"
+  mintTax: BigDecimal!
+  "Current Burn Tax Rate, base 1e6, e.g. 0.01 = 1%"
+  burnTax: BigDecimal!
+  "Init Block Num, e.g. 10006015..."
+  startBlockNum: Int8!
+  "Block Timestamp, unix second e.g. 1733725032"
+  startBlockTime: Timestamp!
+  "Token Type List"
+  tokenTypes: [TokenType!] @derivedFrom(field: "platform")
+  "Bonding Curve Type List"
+  bondingCurves: [BondingCurveType!] @derivedFrom(field: "platform")
+  "Token Count"
+  tokenCount: Int8!
+}
+```
+
+## TokenType(Entity)
+
+- Token Standard Definition: Specifies protocol standards (e.g., ERC20) and their implementation contracts.
+- Platform Association: Bound to a parent Platform entity.
+
+```graphql copy
+"Token Type"
+type TokenType @entity(immutable: true) {
+  "Token Type Id Implement Address-Platform Address Concat Hash e.g. 0xByte32"
+  id: Bytes!
+  "Platform Entity Id"
+  platform: Platform!
+  "Token Type Name , e.g. ERC20"
+  name: String!
+  "Token Type Implement Contract Address e.g. 0xAddr"
+  implement: Bytes!
+}
+```
+
+## BondingCurveType(Entity)
+
+- Pricing Algorithm Template: Defines mathematical models for token mint/burn pricing (e.g., linear/exponential curves).
+- Parameter Encoding: Stores ABI-compatible encoding rules for curve parameters.
+
+```graphql copy
+"Bonding Curve Type, describe curve function type"
+type BondingCurveType @entity(immutable: true) {
+  "Bonding Curve Implement Address-Platform Address Concat Hash e.g. 0xByte32"
+  id: Bytes!
+  "Platform Entity Id"
+  platform: Platform!
+  "Bonding Curve Type Name , e.g. ERC20"
+  name: String!
+  "Curve Parameter Encoder, e.g. (uint256,uint256)"
+  encoder: String!
+  "Bonding Curve Type Implement Contract Address e.g. 0xAddr"
+  implement: Bytes!
+}
+```
+
+## Token(Entity)
+
+- Token Project Master Record: Contains metadata (name/symbol/decimals), economic rules (tax rates, bonding curve), and real-time stats (price, TVL, supply).
+- Relationships: Linked to Platform (deployment origin), TokenType (standard), and BondingCurveType (pricing logic).
+- Activity Tracking: Logs transactional metrics (swap/transfer counts) and hooks (custom extensions).
+
+```graphql copy
+"Bonding Token Project"
+type Token @entity {
+  "Token Id Contract Address , e.g. 0xAddr"
+  id: Bytes!
+  "Deploy Hash , e.g. 0xHash"
+  deployHash: Bytes!
+  "Factory Deploy Log Index , e.g. 1,2"
+  index: BigInt!
+  "Publish Token Address , e.g. 0xAddr"
+  address: Bytes!
+  "Token Name"
+  name: String!
+  "Token Symbol"
+  symbol: String!
+  "Token Metadata Link , http|ipfs"
+  metaUri: String!
+  "Token Decimal"
+  decimal: Int!
+  "Token Type"
+  tokenType: TokenType!
+  "Token Parameter"
+  bondingCurveParams: Bytes!
+  "Bonding Curve Type"
+  bondingCurveType: BondingCurveType!
+  "Lock Token Decimal"
+  lockDecimal: Int!
+  "Lock Token Token"
+  lockToken: Bytes!
+  "Lock Token Name"
+  lockName: String!
+  "Lock Token Symbol"
+  lockSymbol: String!
+  "Token Mint Tax Rate"
+  tokenMintTax: BigDecimal!
+  "Token Burn Tax Rate"
+  tokenBurnTax: BigDecimal!
+  "Publish Platform Address , e.g. 0xAddr"
+  platform: Platform!
+  "Platform Mint Tax"
+  platformMintTax: BigDecimal!
+  "Platform Burn Tax Rate"
+  platformBurnTax: BigDecimal!
+  tokenFeeSum: BigDecimal!
+  platformFeeSum:  BigDecimal!
+  "Token Treasury"
+  treasury: Bytes!
+  "Token Admin"
+  admin: Bytes!
+  "Token Creator"
+  creator: Bytes!
+  "Current Price"
+  currentPrice: BigDecimal!
+  "Token Max Supply"
+  totalSupply: BigDecimal!
+  "Token Circulating Supply"
+  circulateSupply: BigDecimal!
+  "Lock Token Value"
+  tvl: BigDecimal!
+  "Init Transaction Hash, e.g. 0xHash"
+  initTxHash: Bytes!
+  "Price After Premint"
+  initPrice: BigDecimal!
+  "Timestamp Premint"
+  initTimestamp: Timestamp!
+  "Last Transfer Action Block Number"
+  lastTxBlockNum: Int8!
+  "Last Transfer Action Timstamp"
+  lastTxTimestamp: Timestamp!
+  "All Hooks"
+  hooks: [Hook!] @derivedFrom(field: "token")
+  "Transfer Count, except transfer 0"
+  transferCount: Int8!
+  "Mint&Burn Count, except transfer 0"
+  swapCount: Int8!
+  "Token Holder Count, except balance 0"
+  memberCount: Int8!
+}
+```
+
+## Hook(Entity)
+
+- Custom Logic Modules: Attaches external contracts to tokens for added functionality (e.g., whitelists, fee modifiers).
+- Immutable Configuration: Stores initialization data and encoding schemas.
+
+```graphql copy
+"Token's Hooks, Attention! Hook can deploy by user, notice hook implement, hook may change data after deploy"
+type Hook @entity(immutable: true) {
+  "Token Address-Hook Address Concat Hash , e.g. 0xBytes32"
+  id: Bytes!
+  "Token Entity Id"
+  token: Token!
+  "Hook Contract Address , e.g. 0xAddr"
+  address: Bytes!
+  "Name, get when this token deploy, e.g. whitelist"
+  name: String!
+  "encoder, get when this token deploy, e.g. (uint256,string)"
+  encoder: String!
+  "init Data, get when this token deploy, e.g. 0xData"
+  initData: Bytes!
+}
+```
+
+## Account(Entity)
+
+- User-Token Interaction Profile: Trades balances, mint/burn activity, and approval permissions for a user-token pair.
+- Behavior Analytics: Measures engagement via metrics like mintCount, burnTokenSum.
+
+```graphql copy
+"Account's Token Hold Info, count user trade data"
+type Account @entity {
+  "Token Address-User Address Concat Hash , e.g. 0xBytes32"
+  id: Bytes!
+  "User Address , e.g. 0xAddr"
+  user: Bytes!
+  "Token Entity Id"
+  token: Token!
+  "Token Balance Hold, e.g. 1.0"
+  balance: BigDecimal!
+  "Token Transfer Log Count, e.g. 1"
+  transferCount: Int8!
+  "Token Approval Spender Count, except 0, e.g. 1"
+  approvalCount: Int8!
+  "Mint Action Count"
+  mintCount: Int8!
+  "Mint Token Amount Sum, e.g. 1.0"
+  mintTokenSum: BigDecimal!
+  "Mint Lock Token Amount Sum, e.g. 1.0"
+  mintLockSum: BigDecimal!
+  "Burn Action Count"
+  burnCount: Int8!
+  "Burn Token Amount Sum, e.g. 1.0"
+  burnTokenSum: BigDecimal!
+  "Burn Lock Token Amount Sum, e.g. 1.0"
+  burnLockSum: BigDecimal!
+}
+```
+
+## Swap(Entity)
+
+- Mint/Burn Event Log: Records liquidity changes, fees, price impacts, and TVL updates per transaction.
+- Market Context: Captures block/time data and links to Token for historical analysis.
+
+```graphql copy
+"Token Swap Action, contain mint burn"
+type Swap @entity(immutable: true) {
+  "Auto-increment Id , e.g. 1,2"
+  id: Int8!
+  "Transaction Hash , e.g. 0xHash"
+  hash: Bytes!
+  "Block Num, Id e.g. 10006015..."
+  blockNum: Int8!
+  "Block Timestamp, unix second e.g. 1733725032"
+  timestamp: Timestamp!
+  "Action Direction, mint 1 burn -1"
+  direction: Int!
+  "tx.origin, e.g. 0xAddr"
+  origin: Bytes!
+  "msg.sender, e.g. 0xAddr"
+  from: Bytes!
+  "to Parameter Addr, e.g. 0xAddr"
+  to: Bytes!
+  "Token Entity Addr Id , e.g. 0xAddr"
+  token: Token!
+  "Token Amount , e.g. 1.0"
+  tokenAmount: BigDecimal!
+  "Lock Token Amount , e.g. 1.0"
+  lockAmount: BigDecimal!
+  "Token Volume , e.g. -1.0"
+  tokenVolume: BigDecimal!
+  "Lock Token Volume , e.g. -1.0"
+  lockVolume: BigDecimal!
+  "Platform Fee , e.g. 1.0"
+  platformFee: BigDecimal!
+  "Project Fee , e.g. 1.0"
+  projectFee: BigDecimal!
+  "Token/Lock Price , e.g. 1.0"
+  price: BigDecimal!
+  "Token/Lock Rate , e.g. 1.0"
+  rate: BigDecimal!
+  "TVL(Lock) , e.g. 1.0"
+  tvl: BigDecimal!
+  "Total Supply, e.g. 1.0"
+  totalSupply: BigDecimal!
+  "Circulate Supply, e.g. 1.0"
+  circulatingSupply: BigDecimal!
+}
+```
+
+## Kline(Entity)
+- Time-Weighted Market Data: Aggregates price, volume, and supply metrics into intervals (15min/1hr/1day).
+ - Charting Support: Provides OHLC (open-high-low-close) data for token price visualization.
+
+```graphql copy
+enum KlineInterval {
+  _15min
+  _1hour
+  _1day
+}
+
+
+"Kline"
+type Kline @entity {
+  id: Bytes!
+  interval: KlineInterval!
+  "Timestamp"
+  timestamp: Timestamp!
+  "Token Entity Addr Id , e.g. 0xAddr"
+  token: Token!
+  "Open Price"
+  openPrice: BigDecimal!
+  "End Price"
+  endPrice: BigDecimal!
+  "High Price"
+  highPrice: BigDecimal!
+  "Low Price"
+  lowPrice: BigDecimal!
+  "Mint/Burn Count"
+  count: Int8!
+  "Token Amount, total amount"
+  tokenAmount: BigDecimal!
+  "Lock Amount, total amount"
+  lockAmount: BigDecimal!
+  "Token Volume, The change in quantity at the end relative to the beginning"
+  tokenVolume: BigDecimal!
+  "Lock Volume, The change in quantity at the end relative to the beginning"
+  lockVolume: BigDecimal!
+}
+```
+
+## Transfer(Entity)
+
+- Token Movement Record: Tracks transfers (sender/receiver/amount) with blockchain context (block/timestamp).
+
+```graphql copy
+"Token Transfer Action"
+type Transfer @entity(immutable: true) {
+  "Auto-increment Id , e.g. 1,2"
+  id: Int8!
+  "Transaction Hash , e.g. 0xHash"
+  hash: Bytes!
+  "Block Num, Id e.g. 10006015..."
+  blockNum: Int8!
+  "Block Timestamp, unix second e.g. 1733725032"
+  timestamp: Timestamp!
+  "tx.origin, e.g. 0xAddr"
+  origin: Bytes!
+  "msg.sender, e.g. 0xAddr"
+  from: Bytes!
+  "to Parameter Addr, e.g. 0xAddr"
+  to: Bytes!
+  "Trade Volume , e.g. 1.0"
+  token: Token!
+  "Token Amount , e.g. 1.0"
+  amount: BigDecimal!
+}
+```
+
+## Approval (Entity)
+
+- Spender Authorization: Manages allowance grants/revocations for third-party contracts.
+
+
+```graphql copy
+"Token Approval Action"
+type Approval @entity {
+  "User-Token-Approval Address Concat Hash"
+  id: Bytes!
+  "Approval Owner, e.g. 0xAddr"
+  user: Bytes!
+  "Approval Token , e.g. 0xAddr"
+  token: Token!
+  "Approval spender Addr, e.g. 0xAddr"
+  spender: Bytes!
+  "Approve Amount , e.g. 1.0"
+  amount: BigDecimal!
+}
+```
+
+## Key Relationships
+
+- `Token` ↔ `Platform`: Tokens inherit platform-level config (taxes, curves).
+- `Token` ↔ `Swap`/`Transfer`/`Kline`: Transactional entities update token metrics in real time.
+- `Account` ↔ `Token`: User balances and activity are scoped per token.
+- `Hook` → `Token`: Hooks extend token logic without modifying core contracts.
+
+>This schema provides a structured view of platform operations, token economics, and on-chain activity for analytics and dashboards.
+
+### Explore Schema Fields in Detail
+
+For developers seeking to interact deeply with the data model, each entity’s schema includes comprehensive field annotations. These annotations clarify:
+  - Data semantics(e.g., `mintTax: BigDecimal!` explains tax rate storage with a base unit of 1e6).
+  - Field relationships(e.g., `token: Token!` links a `Swap` event to its corresponding token).
+  - Formatting rules(e.g., `id: Bytes!` for contract addresses vs. `id: Int8!` for incremental IDs).
+
+**Lookout!** When querying address-based fields (e.g., `id`, `user`, `platform`, `token`), **always use lowercase letters**. The subgraph stores addresses in lowercase format, and uppercase characters may result in empty data.
+
+To leverage these details, inspect the schema definitions directly—each field is documented inline with usage context, technical constraints, and illustrative examples. This granularity ensures clarity when querying or extending the subgraph.

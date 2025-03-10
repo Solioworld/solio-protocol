@@ -7,5 +7,6 @@ export default {
   "deploy-token": "Deploy Token",
   swap: "Swap",
   manage: "Manage",
-  hooks: "Hooks",
+  hook: 'Hook',
+  hooks: 'Hooks'
 };

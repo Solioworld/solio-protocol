@@ -46,6 +46,9 @@
       "**/*.code-search": true,
       "**/dist": true,
       "stats.html": true
+    },
+    "[mdx]": {
+      "editor.defaultFormatter": "unifiedjs.vscode-mdx"
     }
   }
 }

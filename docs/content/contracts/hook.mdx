@@ -1,0 +1,95 @@
+# Overview
+
+Hook functions are predefined lifecycle methods designed to inject custom logic before or after specific ERC20 token operations (e.g., transfers, minting, burning). By inheriting and overriding these methods, developers can extend token functionalities, such as access control, data synchronization, or state management.
+
+## Function List
+
+### 1. registerHook
+
+- **Parameters**
+  - `token (address)`: Address of the token contract to be registered.
+  - `data (bytes)`: Custom data (e.g., configuration) associated with the token.
+
++ **Functionality**
+
+- Called `exclusively by the factory contract` to register a newly deployed token into the hook system.
+- Typically used to initialize token-related extensions (e.g., binding data, access control, or custom logic). -`Critical Design Note`: - The hook functionality `must be finalized before deployment`, as it becomes immutable once the contract is deployed on-chain. - Developers should thoroughly plan and test hook logic (e.g., permissions, data structures) during the design phase to avoid irreversible errors.
+
++ *Permissions*
+    - Restricted to the factory contract via the `onlyFactory` modifier. - No external or unauthorized addresses can invoke this method once launched.
+
+> Key Considerations
+
+- *Immutability*: Once launched, hook logic cannot be modified due to blockchain immutability. Ensure robustness and security during pre-deployment testing.
+
+### 2. beforeTransferHook
+
++ **Parameters**
+  - `from (address)`: Sender address (`address(0)` during minting).
+  - `to (address)`: Recipient address (`address(0)` during burning).
+  - `amount (uint256)`: Amount of tokens being transferred, minted, or burned.
+
++ **Functionality**
+  - Invoked after `token.\_beforeTokenTransfer`.
+  - Recommended to override beforeMintHook or beforeBurnHook for mint/burn-specific logic (e.g., validation, state updates).
+
+### 3. afterTransferHook
+
++ **Parameters**
+  - `from (address)`: Same as `beforeTransferHook`.
+  - `to (address)`: Same as `beforeTransferHook`.
+  - `amount (uint256)`: Same as `beforeTransferHook`.
+
++ **Functionality**
+  - Invoked after `ERC20.\_afterTokenTransfer`.
+  - Recommended to override `afterMintHook` or `afterBurnHook` for post-mint/burn logic (e.g., event logging, data synchronization).
+
+### 4. beforeMintHook
+
++ **Parameters**
+  - `to (address)`: Address receiving the minted tokens.
+  - `tokenAmount (uint256)`: Amount of tokens to mint.
+  - `lockAmount (uint256)`: Amount of raised tokens to lock (e.g., for staking).
+
++ **Functionality**
+  - Called before minting (prior to `ERC20.\_mintInternal`).
+  - Used for pre-mint validation or calculations (e.g., staking checks, fee deductions).
+
+### 5. afterMintHook
+
++ **Parameters**
+  - `to (address)`: Address receiving the minted tokens.
+  - `tokenAmount (uint256)`: Amount of tokens to mint.
+  - `lockAmount (uint256)`: Amount of raised tokens to lock (e.g., for staking).
+
++ **Functionality**
+  - Called after minting (following `ERC20.\_mintInternal`).
+  - Used for post-mint actions (e.g., updating locked token data, emitting events).
+
+### 6. beforeBurnHook
+
++ **Parameters**
+  - `from (address)`: Address initiating the burn.
+  - `tokenAmount (uint256)`: Amount of tokens to burn.
+  - `returnAmount (uint256)`: Amount of raised tokens to return to the user.
+
++ **Functionality**
+  - Called before burning (prior to `ERC20.\_beforeTokenTransfer`).
+  - Used for pre-burn validation or calculations (e.g., balance checks, reward calculations).
+
+### 7. afterBurnHook
+
++ **Parameters**
+  - `from (address)`: Same as `beforeBurnHook`.
+  - `tokenAmount (uint256)`: Same as `beforeBurnHook`.
+  - `returnAmount (uint256)`: Same as `beforeBurnHook`.
+
++ **Functionality**
+  - Called after burning (following `ERC20.\_burnInternal`).
+  - Used for post-burn actions (e.g., refunding tokens, logging results).
+
+## Use Cases
+  - **Access Control**: Restrict minting/burning to authorized addresses.
+  - **Data Synchronization**: Update external contracts or databases during transfers.
+  - **Fee Management**: Apply dynamic fees based on transaction type (mint, transfer, burn).
+  - **Event Tracking**: Emit custom events to monitor token flows.

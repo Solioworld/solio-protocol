@@ -1,4 +1,5 @@
 export default {
-  index: "Installation",
+  index: "Overview",
+  entity: "Entities",
   examples: "Examples",
 };
